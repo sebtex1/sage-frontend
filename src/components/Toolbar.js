@@ -1,5 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import Icon from '@mdi/react';
+import { mdiMenu } from '@mdi/js';
+import { mdiMenuOpen } from '@mdi/js';
+import { mdiFilePlusOutline } from '@mdi/js';
+import { mdiAccountCircleOutline } from '@mdi/js';
+import Slider from './Slider';
 
 const Toolbar = () => {
     const [open, setOpen] = React.useState(false);
@@ -13,36 +19,23 @@ const Toolbar = () => {
         <>
             <Div>
                 <Side>
-                    <button onClick={handleMenu}>menu</button>
+                    {
+                         open ?
+                         <Icon path={mdiMenuOpen} size={2} color="black" onClick={handleMenu} /> :
+                         <Icon path={mdiMenu} size={2} color="black" onClick={handleMenu} />
+                    }
                     <Img src="https://signin.sso.sage.com/brands/default/images/sage-logo.png" alt="Logo sage" />
                     <p>Gestion commerciale &gt; Produits</p>
                 </Side>
                 <Side>
-                    <p>test</p>
+                    <CreateDocument>
+                        <Icon path={mdiFilePlusOutline} size={1} color="black" />
+                        <P>Ajouter un document</P>
+                    </CreateDocument>
+                    <Icon path={mdiAccountCircleOutline} size={2} color="black" />
                 </Side>
             </Div>
-            <Slider $left={open ? '50px' : '-230px'}>
-                <TopSlider>
-                    <HeaderSlider>
-                        <Img src="https://signin.sso.sage.com/brands/default/images/sage-logo.png" alt="Logo sage" />
-                        <button onClick={handleMenu}>menu</button>
-                    </HeaderSlider>
-                    <LinksSlider>
-                        <p>Gestion commercial</p>
-                        <p>Comptabilité</p>
-                        <p>Paie</p>
-                    </LinksSlider>
-                    <LinksSlider>
-                        <p>Documents</p>
-                        <p>Tiers</p>
-                        <p>Produits</p>
-                        <p>Dépôts</p>
-                    </LinksSlider>
-                </TopSlider>
-                <BottomSlider>
-                    <h1>Footer</h1>
-                </BottomSlider>
-            </Slider>
+            <Slider open={open} handleMenu={handleMenu} />
         </>
     );
 }
@@ -67,44 +60,17 @@ const Img = styled.img`
     margin: auto 10px;
 `;
 
-const Slider = styled.div`
-    position: absolute;
+const CreateDocument = styled.div`
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 10px;
-    top: 100px;
-    left: ${props => props.$left ? props.$left : '0'};
-    width: 200px;
-    height: 700px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 2px -2px 10px black;
-    transition: 0.5s;
-`;
-
-const TopSlider = styled.div`
-    display: flex;
-    flex-direction: column;
-`;
-
-const HeaderSlider = styled.div`
-    display: flex;
-    justify-content: space-between;
+    flex-direction: row;
     align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 0 10px 0 10px;
+    margin: 0 20px 0 0;
+    cursor: pointer;
 `;
 
-const LinksSlider = styled.div`
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
-`;
-
-const BottomSlider = styled.div`
-    display: flex;
-    flex-direction: column;
-    border-top: 1px solid #000;
+const P = styled.p`
+    margin-left: 10px;
 `;
