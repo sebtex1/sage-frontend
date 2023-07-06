@@ -3,13 +3,14 @@ import {
     createBrowserRouter,
     RouterProvider,
 } from "react-router-dom";
+import Default from "./layouts/Default";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Home />,
+        element: <Default><Home /></Default>,
     },
     {
         path: "/login",
