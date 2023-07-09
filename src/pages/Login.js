@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import InputForm from '../components/InputForm';
 import ButtonForm from '../components/ButtonForm';
 import styled from 'styled-components';
@@ -9,7 +10,7 @@ const Login = () => {
     return (
         <Container>
             <Div>
-                <Img src="https://signin.sso.sage.com/brands/default/images/sage-logo.png" alt="Logo sage" />
+                <LinkStyled to="/"><Img src="https://signin.sso.sage.com/brands/default/images/sage-logo.png" alt="Logo sage" /></LinkStyled>
                 <h1>Connexion</h1>
                 <form onSubmit={handleSubmit}>
                     <InputForm
@@ -68,6 +69,10 @@ const Div = styled.div`
     margin: auto;
     background-color: #fff;
     text-align: left;
+`;
+
+const LinkStyled = styled(Link)`
+    margin: auto 10px;
 `;
 
 const Img = styled.img`
