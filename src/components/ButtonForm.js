@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const ButtonForm = ({ type, value }) => {
+const ButtonForm = ({ type = '', value }) => {
     return (
         <Button type={type}>{value}</Button>
     );
@@ -16,6 +16,7 @@ const Button = styled.button`
     margin: 8px 0;
     width: 100%;
     cursor: pointer;
+    transition: 0.3s;
     &:hover {
         background-color: rgb(0, 101, 55);
     }

@@ -6,6 +6,7 @@ import {
 import Default from "./layouts/Default";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import Settings from "./pages/Settings";
 
 const router = createBrowserRouter([
     {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
         path: "/login",
         element: <Login />,
     },
+    {
+        path: "/settings",
+        element: <Default><Settings /></Default>,
+    }
 ]);
 
 const App = () => {
