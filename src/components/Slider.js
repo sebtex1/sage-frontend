@@ -17,7 +17,7 @@ const Slider = ({ open, handleMenu, side = 'left' }) => {
     return (
         <>
             { side === 'left' ?
-                <SliderContainerLeft $left={open ? '25px' : '-230px'}>
+                <SliderContainerLeft $left={open ? '0' : '-330px'}>
                     <TopSlider>
                         <HeaderSlider>
                             <Img src="https://signin.sso.sage.com/brands/default/images/sage-logo.png" alt="Logo sage" />
@@ -87,14 +87,14 @@ const SliderContainerLeft = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 10px;
-    top: 100px;
+    padding: 0 10px;
+    top: 0;
     left: ${props => props.$left ? props.$left : '0'};
-    width: 200px;
-    height: 700px;
+    width: 300px;
+    height: 100vh;
     background-color: #fff;
     border-radius: 5px;
-    box-shadow: 2px -2px 10px black;
+    box-shadow: 0px 0px 4px black;
     transition: 0.5s;
 `;
 
@@ -108,10 +108,11 @@ const SliderContainerRight = styled.div`
     right: ${props => props.$right ? props.$right : '0'};
     opacity: ${props => props.$right === '25px' ? '1' : '0'};
     visibility: ${props => props.$right === '25px' ? 'visible' : 'hidden'};
-    width: 200px;
+    width: 300px;
     background-color: #fff;
+    border: 1px solid #ccc;
     border-radius: 5px;
-    box-shadow: 2px -2px 10px black;
+    box-shadow: 0px 0px 4px black;
     transition: 0.5s right, 0.5s opacity, 0.5s visibility;
 `;
 
@@ -128,7 +129,7 @@ const HeaderSlider = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 10px 20px 10px;
+    padding: 20px 10px;
     /* border-bottom: 1px solid #ccc; */
 `;
 

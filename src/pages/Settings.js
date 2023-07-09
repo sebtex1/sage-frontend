@@ -55,7 +55,7 @@ const Setting = () => {
                     <h3>Compte</h3>
                     <h3>Taxes</h3>
                 </PageColumn>
-                <PageColumn  flex={2}>
+                <PageColumn flex={2}>
                     <Div>
                         <Title>Gestion des accèss</Title>
                         <AddButton>Ajouter un utilisateur</AddButton>
