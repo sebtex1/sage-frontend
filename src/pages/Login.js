@@ -3,10 +3,26 @@ import { Link } from 'react-router-dom'
 import InputForm from '../components/InputForm';
 import ButtonForm from '../components/ButtonForm';
 import styled from 'styled-components';
+import Icon from '@mdi/react';
+import { mdiEyeOffOutline } from '@mdi/js';
+import { mdiEyeOutline } from '@mdi/js';
 
 const Login = () => {
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
+    const [showPassword, setShowPassword] = React.useState(false)
+
+    
+
+    const displayPassword = () => {
+        const password = document.querySelector("#password");
+
+        const type = password.getAttribute("type") === "password" ? "text" : "password";
+        password.setAttribute("type", type);
+
+        setShowPassword(!showPassword);
+    }
+
     return (
         <Container>
             <Div>
@@ -19,6 +35,7 @@ const Login = () => {
                         id="email"
                         name="email"
                         value={email}
+                        required={true}
                         onChange={e => setEmail(e.target.value)}
                     />
                     <br />
@@ -28,8 +45,16 @@ const Login = () => {
                         id="password"
                         name="password"
                         value={password}
+                        required={true}
                         onChange={e => setPassword(e.target.value)}
                     />
+                    {
+                        password.length > 0 ?
+                            (showPassword ?
+                            <Icon style={{cursor: 'pointer'}} path={mdiEyeOutline} size={1} id="togglePassword" onClick={displayPassword} /> :
+                            <Icon style={{cursor: 'pointer'}} path={mdiEyeOffOutline} size={1} id="togglePassword" onClick={displayPassword} /> )
+                        : null
+                    }
                     <br />
                     <ButtonForm type="submit" value="Connexion" />
                 </form>

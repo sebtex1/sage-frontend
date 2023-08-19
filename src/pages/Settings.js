@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PageColumn from '../components/PageColumn';
-
-// q: j'ai une erreur 'too many re-renders' sur la ligne 30, je ne comprends pas pourquoi
-// r: la fonction checkOne est appelée à chaque rendu de la page, il faut la passer en callback
+import Icon from '@mdi/react';
+import { mdiChevronLeft } from '@mdi/js';
+import { mdiChevronRight } from '@mdi/js';
 
 const Setting = () => {
     const [users, setUsers] = useState([
@@ -38,8 +38,6 @@ const Setting = () => {
             }
         }))
     }
-
-
 
     return (
         <>
@@ -89,7 +87,13 @@ const Setting = () => {
                             })
                         }
                     </CardManageAccess>
-                    <p>&gt; Previous Next &gt;</p>
+                    <RowPagination>
+                        <Icon path={mdiChevronLeft} size={1} color="black" />
+                        <NumberPagination>1</NumberPagination>
+                        <NumberPagination>...</NumberPagination>
+                        <NumberPagination>5</NumberPagination>
+                        <Icon path={mdiChevronRight} size={1} color="black" />
+                    </RowPagination>
                 </PageColumn>
                 <PageColumn></PageColumn>
             </Div>
@@ -198,5 +202,19 @@ const Name = styled.p`
 
 const Role = styled.p`
     margin: 0;
+    padding: 0;
+`;
+
+const RowPagination = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+`;
+
+const NumberPagination = styled.p`
+    margin: 0 10px;
     padding: 0;
 `;

@@ -7,6 +7,9 @@ import Default from "./layouts/Default";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Settings from "./pages/Settings";
+import GestionCommerciale from "./pages/GestionCommerciale";
+import Documents from "./pages/Documents";
+import NotFound from "./pages/NotFound";
 
 const router = createBrowserRouter([
     {
@@ -20,6 +23,19 @@ const router = createBrowserRouter([
     {
         path: "/settings",
         element: <Default><Settings /></Default>,
+    },
+    {
+        path: "/gestionCommerciale",
+        element: <Default><GestionCommerciale /></Default>,
+    },
+    
+    {
+        path: "/Documents",
+        element: <Default><Documents /></Default>,
+    },
+    {
+        path: "*",
+        element: <Default><NotFound /></Default>,
     }
 ]);
 

@@ -10,6 +10,13 @@ import Slider from './Slider';
 const Toolbar = () => {
     const [openMenu, setOpenMenu] = React.useState(false);
     const [openAccount, setOpenAccount] = React.useState(false);
+
+    React.useEffect(() => {
+        if(openMenu) setOpenAccount(false);
+    }, [openMenu])
+    React.useEffect(() => {
+        if(openAccount) setOpenMenu(false);
+    }, [openAccount])
     
     // Fonction activant le menu nav
     const handleMenu = () => {
@@ -25,10 +32,10 @@ const Toolbar = () => {
                 <Side>
                     {
                         openMenu ?
-                        <Icon path={mdiMenuOpen} size={2} color="black" onClick={handleMenu} /> :
-                        <Icon path={mdiMenu} size={2} color="black" onClick={handleMenu} />
+                        <Icon style={{cursor: 'pointer'}} path={mdiMenuOpen} size={2} color="black" onClick={handleMenu} /> :
+                        <Icon style={{cursor: 'pointer'}} path={mdiMenu} size={2} color="black" onClick={handleMenu} />
                     }
-                    <LinkStyled to="/"><Img src="https://signin.sso.sage.com/brands/default/images/sage-logo.png" alt="Logo sage" /></LinkStyled>
+                    <LinkStyled to="/" onClick={() => { setOpenAccount(false) }}><Img src="https://signin.sso.sage.com/brands/default/images/sage-logo.png" alt="Logo sage" /></LinkStyled>
                     <p>Gestion commerciale &gt; Produits</p>
                 </Side>
                 <Side>
@@ -85,6 +92,7 @@ const ImgAccount = styled.img`
     width: 50px;
     height: 50px;
     border-radius: 50%;
+    cursor: pointer;
 `;
 
 const CreateDocument = styled.div`

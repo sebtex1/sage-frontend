@@ -20,39 +20,43 @@ const Slider = ({ open, handleMenu, side = 'left' }) => {
                 <SliderContainerLeft $left={open ? '0' : '-330px'}>
                     <TopSlider>
                         <HeaderSlider>
-                            <Img src="https://signin.sso.sage.com/brands/default/images/sage-logo.png" alt="Logo sage" />
-                            <Icon path={mdiChevronDoubleLeft} size={1} color="black" onClick={() => { handleMenu() } } />
+                            <LinkStyled to="/" onClick={() => { handleMenu() } }>
+                                <Img src="https://signin.sso.sage.com/brands/default/images/sage-logo.png" alt="Logo sage" />
+                            </LinkStyled>
+                            <Icon style={{cursor: 'pointer'}} path={mdiChevronDoubleLeft} size={1} color="black" onClick={() => { handleMenu() } } />
                         </HeaderSlider>
                         <BorderBottom />
                         <LinksSlider>
-                            <LinkContainer>
-                                <Icon path={mdiAlphaGBox} size={1} color="green" />
-                                <P>Gestion commercial</P>
-                            </LinkContainer>
-                            <LinkContainer>
+                            <LinkStyled to="/gestionCommerciale" onClick={() => { handleMenu() } }>
+                                <LinkContainer>
+                                    <Icon path={mdiAlphaGBox} size={1} color="green" />
+                                    <P>Gestion commerciale</P>
+                                </LinkContainer>
+                            </LinkStyled>
+                            <LinkContainer onClick={() => { handleMenu() } }>
                                 <Icon path={mdiAlphaCBox} size={1} color="green" />
                                 <P>Comptabilité</P>
                             </LinkContainer>
-                            <LinkContainer>
+                            <LinkContainer onClick={() => { handleMenu() } }>
                                 <Icon path={mdiAlphaPBox} size={1} color="green" />
                                 <P>Paie</P>
                             </LinkContainer>
                         </LinksSlider>
                         <BorderBottom />
                         <LinksSlider>
-                            <LinkContainer>
+                            <LinkContainer onClick={() => { handleMenu() } }>
                                 <Icon path={mdiFileDocumentOutline } size={1} color="black" />
                                 <P>Documents</P>
                             </LinkContainer>
-                            <LinkContainer>
+                            <LinkContainer onClick={() => { handleMenu() } }>
                                 <Icon path={mdiAccountOutline } size={1} color="black" />
                                 <P>Tiers</P>
                             </LinkContainer>
-                            <LinkContainer>
+                            <LinkContainer onClick={() => { handleMenu() } }>
                                 <Icon path={mdiShoppingOutline } size={1} color="black" />
                                 <P>Produits</P>
                             </LinkContainer>
-                            <LinkContainer>
+                            <LinkContainer onClick={() => { handleMenu() } }>
                                 <Icon path={mdiWarehouse } size={1} color="black" />
                                 <P>Dépôts</P>
                             </LinkContainer>
@@ -65,11 +69,11 @@ const Slider = ({ open, handleMenu, side = 'left' }) => {
                 <SliderContainerRight $right={open ? '25px' : '0'}>
                     <TopSlider>
                         <LinksSlider>
-                            <LinkContainer>
+                            <LinkContainer onClick={() => { handleMenu() }}>
                                 <Icon path={mdiCogOutline} size={1} color="black" />
                                 <LinkStyled to="/settings">Settings</LinkStyled>
                             </LinkContainer>
-                            <LinkContainer>
+                            <LinkContainer onClick={() => { handleMenu() }}>
                                 <Icon path={mdiPower} size={1} color="black" />
                                 <P>Déconnexion</P>
                             </LinkContainer>
@@ -151,6 +155,7 @@ const LinkContainer = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
+    cursor: pointer;
 `;
 
 const LinkStyled = styled(Link)`
