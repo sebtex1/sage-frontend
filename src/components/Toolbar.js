@@ -1,18 +1,29 @@
 import React from 'react';
 import styled from 'styled-components';
 import Icon from '@mdi/react';
+import { Link } from 'react-router-dom'
 import { mdiMenu } from '@mdi/js';
 import { mdiMenuOpen } from '@mdi/js';
 import { mdiFilePlusOutline } from '@mdi/js';
-import { mdiAccountCircleOutline } from '@mdi/js';
 import Slider from './Slider';
 
 const Toolbar = () => {
-    const [open, setOpen] = React.useState(false);
+    const [openMenu, setOpenMenu] = React.useState(false);
+    const [openAccount, setOpenAccount] = React.useState(false);
+
+    React.useEffect(() => {
+        if(openMenu) setOpenAccount(false);
+    }, [openMenu])
+    React.useEffect(() => {
+        if(openAccount) setOpenMenu(false);
+    }, [openAccount])
     
-    // Fonction activant le menu
+    // Fonction activant le menu nav
     const handleMenu = () => {
-        setOpen(!open);
+        setOpenMenu(!openMenu);
+    }
+    const handleAccount = () => {
+        setOpenAccount(!openAccount);
     }
 
     return (
@@ -20,11 +31,11 @@ const Toolbar = () => {
             <Div>
                 <Side>
                     {
-                         open ?
-                         <Icon path={mdiMenuOpen} size={2} color="black" onClick={handleMenu} /> :
-                         <Icon path={mdiMenu} size={2} color="black" onClick={handleMenu} />
+                        openMenu ?
+                        <Icon style={{cursor: 'pointer'}} path={mdiMenuOpen} size={2} color="black" onClick={handleMenu} /> :
+                        <Icon style={{cursor: 'pointer'}} path={mdiMenu} size={2} color="black" onClick={handleMenu} />
                     }
-                    <Img src="https://signin.sso.sage.com/brands/default/images/sage-logo.png" alt="Logo sage" />
+                    <LinkStyled to="/" onClick={() => { setOpenAccount(false) }}><Img src="https://signin.sso.sage.com/brands/default/images/sage-logo.png" alt="Logo sage" /></LinkStyled>
                     <p>Gestion commerciale &gt; Produits</p>
                 </Side>
                 <Side>
@@ -32,10 +43,11 @@ const Toolbar = () => {
                         <Icon path={mdiFilePlusOutline} size={1} color="black" />
                         <P>Ajouter un document</P>
                     </CreateDocument>
-                    <Icon path={mdiAccountCircleOutline} size={2} color="black" />
+                    <ImgAccount src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" onClick={handleAccount} />
                 </Side>
             </Div>
-            <Slider open={open} handleMenu={handleMenu} />
+            <Slider open={openMenu} handleMenu={handleMenu} />
+            <Slider open={openAccount} handleMenu={handleAccount} side="right" />
         </>
     );
 }
@@ -53,11 +65,34 @@ const Side = styled.div`
     display: flex;
 `;
 
+// const BorderMenu = styled.div`
+//     border: 1px solid black;
+//     border-radius: 5px;
+//     padding: 0 10px 0 10px;
+//     margin: 0 20px 0 0;
+//     cursor: pointer;
+// `;
+
 const Img = styled.img`
     display: block;
     width: 50px;
     height: 25px;
+`;
+
+const LinkStyled = styled(Link)`
+    text-decoration: none;
+    color: black;
     margin: auto 10px;
+    display: block;
+    width: 50px;
+    height: 25px;
+`;
+
+const ImgAccount = styled.img`
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
 `;
 
 const CreateDocument = styled.div`
