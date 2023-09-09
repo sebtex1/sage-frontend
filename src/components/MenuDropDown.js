@@ -17,7 +17,7 @@ const MenuDropDown = ({ menu = [], callback }) => {
                             onClick={() => {setRowIndex(index)}}>{row.name}
                         </Category>
                         <DivChoices>
-                            {rowIndex === index ? row.choices.map((choice, index) => {
+                            {rowIndex === index ? row.choices?.map((choice, index) => {
                                 return (
                                     <p key={index} onClick={() => {callback(choice.value)}}>{choice.name}</p>
                                 )

@@ -9,6 +9,15 @@ import MenuDropDown from "../components/MenuDropDown";
 const Documents = () => {
     const [search, setSearch] = React.useState('')
     const [document, setDocument] = React.useState('devis')
+    const [filteredData, setFilteredData] = React.useState([])
+
+    React.useEffect(() => {
+        setFilteredData(documentsData[document].filter(item => item.ref.includes(search)))
+    }, [search])
+
+    React.useEffect(() => {
+        setFilteredData(documentsData[document])
+    }, [document])
 
     const menu = [
         {
@@ -120,6 +129,7 @@ const Documents = () => {
         return data.filter(item => item.date === date).length
     }
 
+    // TODO: définir les labels et datasets en fonction des données
     const labels = ['16/06/2023', '17/06/2023', '18/06/2023', '19/06/2023', '20/06/2023', '21/06/2023', '22/06/2023']
     const datasetDevis = [{
         data: [
@@ -160,11 +170,23 @@ const Documents = () => {
                         type="text"
                         id="search"
                         name="search"
-                        placeholder="Rechercher un document"
+                        placeholder="Rechercher un document (Référence)"
                         value={search}
                         onChange={e => setSearch(e.target.value)}
                     />
-                    {documentsData[document] ? <TablePaged data={documentsData[document]} itemsPerPage={15}/> : null}
+                    { 
+                        filteredData ?
+                        <TablePaged 
+                            data={filteredData} 
+                            headers={[
+                                { name: 'Référence', value: 'ref' },
+                                { name: 'Date', value: 'date' },
+                                { name: 'Client', value: 'client' },
+                                { name: 'Dépôt', value: 'depot' },
+                                { name: 'Total HT', value: 'totalHT' }]}
+                            itemsPerPage={15}/> :
+                        null
+                    }
                 </PageColumn>
                 <PageColumn>
                     <LineChart data={datasetDevis} labels={labels} title='Devis sur les 7 derniers jours' />

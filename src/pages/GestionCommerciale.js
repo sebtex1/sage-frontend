@@ -7,6 +7,9 @@ const GestionCommerciale = () => {
             <button>
                 <Link to="/documents">Documents</Link>
             </button>
+            <button>
+                <Link to="/produits">Produits</Link>
+            </button>
         </div>
     );
 }

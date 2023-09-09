@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Settings from "./pages/Settings";
 import GestionCommerciale from "./pages/GestionCommerciale";
 import Documents from "./pages/Documents";
+import Produits from "./pages/Produits";
 import NotFound from "./pages/NotFound";
 
 const router = createBrowserRouter([
@@ -28,10 +29,13 @@ const router = createBrowserRouter([
         path: "/gestionCommerciale",
         element: <Default><GestionCommerciale /></Default>,
     },
-    
     {
-        path: "/Documents",
+        path: "/documents",
         element: <Default><Documents /></Default>,
+    },
+    {
+        path: "/produits",
+        element: <Default><Produits /></Default>,
     },
     {
         path: "*",

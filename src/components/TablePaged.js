@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-const TablePaged = ({ data, itemsPerPage}) => {
+const TablePaged = ({ data, headers, itemsPerPage }) => {
     const [currentPage, setCurrentPage] = useState(0);
 
     const handlePageChange = ({ selected }) => {
@@ -33,21 +33,17 @@ const TablePaged = ({ data, itemsPerPage}) => {
                 <Table>
                     <thead>
                         <TableRow>
-                            <TableHeaderCell>Référence</TableHeaderCell>
-                            <TableHeaderCell>Date</TableHeaderCell>
-                            <TableHeaderCell>Client</TableHeaderCell>
-                            <TableHeaderCell>Dépôt</TableHeaderCell>
-                            <TableHeaderCell>Total HT</TableHeaderCell>
+                            {headers ? headers.map((header, index) => (
+                                <TableHeaderCell key={index}>{header.name}</TableHeaderCell>
+                            )) : null}
                         </TableRow>
                     </thead>
                     <tbody>
                         {currentPageData.map((row, index) => (
                             <TableRow key={index}>
-                                <TableCell>{row.ref}</TableCell>
-                                <TableCell>{row.date}</TableCell>
-                                <TableCell>{row.client}</TableCell>
-                                <TableCell>{row.depot}</TableCell>
-                                <TableCell>{row.totalHT}</TableCell>
+                                {headers ? headers.map((header, index) => (
+                                    <TableCell key={index}>{row[header.value]}</TableCell>
+                                )) : null}
                             </TableRow>
                         ))}
                     </tbody>
