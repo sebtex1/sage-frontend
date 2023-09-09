@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import ReactPaginate from 'react-paginate';
 import styled from 'styled-components';
 
 const TablePaged = ({ data, itemsPerPage}) => {
@@ -11,6 +10,23 @@ const TablePaged = ({ data, itemsPerPage}) => {
   
     const offset = currentPage * itemsPerPage;
     const currentPageData = data.slice(offset, offset + itemsPerPage);
+    const pageCount = Math.ceil(data.length / itemsPerPage);
+
+    const renderPageNumbers = () => {
+        const pages = [];
+        for (let i = 0; i < pageCount; i++) {
+            pages.push(
+                <PaginationButton
+                    key={i}
+                    style={{ backgroundColor: currentPage === i ? '#007E45' : '', color:  currentPage === i ? 'white' : '',  fontWeight: currentPage === i ? 'bold': '' }}
+                    onClick={() => setCurrentPage(i)}
+                >
+                    {i + 1}
+                </PaginationButton>
+            );
+        }
+        return pages;
+    }
     return (
         <>
             <TableContainer>
@@ -37,14 +53,21 @@ const TablePaged = ({ data, itemsPerPage}) => {
                     </tbody>
                 </Table>
             </TableContainer>
-            <ReactPaginate
-                previousLabel={'Précédent'}
-                nextLabel={'Suivant'}
-                pageCount={Math.ceil(data.length / itemsPerPage)}
-                onPageChange={handlePageChange}
-                containerClassName={'pagination'}
-                activeClassName={'active'}
-            />
+            {pageCount > 1 ?
+                <PaginationContainer>
+                    {
+                        currentPage !== 0 ?
+                        <PaginationButton onClick={() => setCurrentPage(currentPage - 1)}>Précédant</PaginationButton> :
+                        <PaginationButton style={{ opacity: '0', pointerEvents: 'none' }}>Précédant</PaginationButton>
+                    }
+                    {renderPageNumbers()}
+                    {
+                        currentPage !== (pageCount - 1) ?
+                        <PaginationButton onClick={() => setCurrentPage(currentPage + 1)}>Suivant</PaginationButton> :
+                        <PaginationButton style={{ opacity: '0', pointerEvents: 'none' }}>Suivant</PaginationButton>
+                    }
+                </PaginationContainer> :
+            null}
         </>
     )
 }
@@ -76,4 +99,25 @@ const TableHeaderCell = styled.th`
 
 const TableCell = styled.td`
   padding: 8px;
+`;
+
+const PaginationContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+`;
+
+const PaginationButton = styled.button`
+    background-color: #f2f2f2;
+    border: none;
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+    cursor: pointer;
+    margin: 0 5px;
+    border-radius: 5px;
+    &:hover {
+        background-color: #ddd;
+    }
 `;
