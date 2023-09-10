@@ -14,7 +14,7 @@ const GestionCommerciale = () => {
                 <Link to="/produits">Produits</Link>
             </button>
             <button>
-                <Link to="/produits/detail">Détail produit</Link>
+                <Link to="/tiers/detail">Détail tiers</Link>
             </button>
         </div>
     );

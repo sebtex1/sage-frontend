@@ -57,7 +57,15 @@ const Produits = () => {
                         value={search}
                         onChange={e => setSearch(e.target.value)}
                     />
-                    {filteredData ? <TablePaged data={filteredData} headers={[{name: 'Nom', value: 'name'}, {name: 'Type', value: 'type'}]} itemsPerPage={15}/> : null}
+                    { 
+                        filteredData ? 
+                        <TablePaged
+                            data={filteredData}
+                            headers={[{name: 'Nom', value: 'name'}]}
+                            itemsPerPage={15}
+                        /> : 
+                        null
+                    }
                 </PageColumn>
                 <PageColumn>
                     <LineChart data={datasetCommande} labels={labels} title='Commandes des 3 dernières semaines' />
