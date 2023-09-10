@@ -21,6 +21,25 @@ const Produits = () => {
         { id: 2, name: 'Produit 2', type: 'Type 2', stock_tracking: false },
         { id: 3, name: 'Produit 3', type: 'Type 3', stock_tracking: true }
     ]
+    const labels = ['21/08/23 - 27/08/23', '28/08/23 - 03/09/23', '04/09/23 - 10/09/23']
+    const datasetCommande = [{
+        data: [
+            10,
+            5,
+            12,
+        ],
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgb(255, 99, 132)',
+    }]
+    const datasetRetours = [{
+        data: [
+            0,
+            5,
+            0,
+        ],
+        borderColor: 'rgb(53, 162, 235)',
+        backgroundColor: 'rgba(53, 162, 235)',
+    }]
 
     return (
         <>
@@ -41,8 +60,8 @@ const Produits = () => {
                     {filteredData ? <TablePaged data={filteredData} headers={[{name: 'Nom', value: 'name'}, {name: 'Type', value: 'type'}]} itemsPerPage={15}/> : null}
                 </PageColumn>
                 <PageColumn>
-                    {/* <LineChart data={datasetDevis} labels={labels} title='Devis sur les 7 derniers jours' /> */}
-                    {/* <LineChart data={datasetBonsDeCommande} labels={labels} title='Bons de commande sur les 7 derniers jours' /> */}
+                    <LineChart data={datasetCommande} labels={labels} title='Commandes des 3 dernières semaines' />
+                    <LineChart data={datasetRetours} labels={labels} title='Retours des 3 dernières semaines' />
                 </PageColumn>
             </Div>
         </>
