@@ -3,7 +3,7 @@ import styled from "styled-components";
 import InputForm from "../components/InputForm";
 import PageColumn from "../components/PageColumn";
 
-const Détail = () => {
+const DetailProduit = () => {
     return (
         <Div>
             <PageColumn>
@@ -111,7 +111,7 @@ const Détail = () => {
         </Div>
     );
 }
-export default Détail;
+export default DetailProduit;
 
 const Div = styled.div`
     display: flex;

@@ -9,8 +9,9 @@ import Login from "./pages/Login";
 import Settings from "./pages/Settings";
 import GestionCommerciale from "./pages/GestionCommerciale";
 import Documents from "./pages/Documents";
+import DetailDocument from "./pages/DetailDocument";
 import Produits from "./pages/Produits";
-import Detail from "./pages/Detail";
+import DetailProduit from "./pages/DetailProduit";
 import NotFound from "./pages/NotFound";
 
 const router = createBrowserRouter([
@@ -35,12 +36,16 @@ const router = createBrowserRouter([
         element: <Default><Documents /></Default>,
     },
     {
+        path: "/documents/detail",
+        element: <Default><DetailDocument /></Default>,
+    },
+    {
         path: "/produits",
         element: <Default><Produits /></Default>,
     },
     {
-        path: "/detail",
-        element: <Default><Detail /></Default>,
+        path: "/produits/detail",
+        element: <Default><DetailProduit /></Default>,
     },
     {
         path: "*",
