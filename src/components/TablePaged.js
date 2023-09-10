@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-const TablePaged = ({ data, headers, itemsPerPage }) => {
+const TablePaged = ({ data, headers, itemsPerPage, rowClick }) => {
     const [currentPage, setCurrentPage] = useState(0);
 
     const handlePageChange = ({ selected }) => {
@@ -27,6 +27,11 @@ const TablePaged = ({ data, headers, itemsPerPage }) => {
         }
         return pages;
     }
+    const executeRowClick = () => {
+        if (rowClick !== undefined) {
+            rowClick()
+        }
+    }
     return (
         <>
             <TableContainer>
@@ -42,7 +47,7 @@ const TablePaged = ({ data, headers, itemsPerPage }) => {
                         {currentPageData.map((row, index) => (
                             <TableRow key={index}>
                                 {headers ? headers.map((header, index) => (
-                                    <TableCell key={index}>{row[header.value]}</TableCell>
+                                    <TableCell key={index} onClick={() => {executeRowClick()}}>{row[header.value]}</TableCell>
                                 )) : null}
                             </TableRow>
                         ))}

@@ -11,6 +11,7 @@ import GestionCommerciale from "./pages/GestionCommerciale";
 import Documents from "./pages/Documents";
 import DetailDocument from "./pages/DetailDocument";
 import Produits from "./pages/Produits";
+import DetailProduit from "./pages/DetailProduit";
 import DetailTiers from "./pages/DetailTiers";
 import NotFound from "./pages/NotFound";
 
@@ -42,6 +43,11 @@ const router = createBrowserRouter([
     {
         path: "/produits",
         element: <Default><Produits /></Default>,
+    },
+    
+    {
+        path: "/produits/detail",
+        element: <Default><DetailProduit /></Default>,
     },
     {
         path: "/tiers/detail",
