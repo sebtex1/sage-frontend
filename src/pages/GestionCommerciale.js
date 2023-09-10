@@ -10,6 +10,9 @@ const GestionCommerciale = () => {
             <button>
                 <Link to="/produits">Produits</Link>
             </button>
+            <button>
+                <Link to="/detail">Détail</Link>
+            </button>
         </div>
     );
 }
