@@ -12,7 +12,7 @@ const DetailProduit = () => {
     const [selection, setSelection] = React.useState('Infos')
     // const [filteredData, setFilteredData] = React.useState([])
     const [produitName, setProduitName] = React.useState('Produit 1')
-    const [produitType, setProduitType] = React.useState('Type 1')
+    const [produitType, setProduitType] = React.useState('Variants')
     const [produitTracker, setProduitTracker] = React.useState(true)
 
     // React.useEffect(() => {
@@ -71,25 +71,25 @@ const DetailProduit = () => {
                             value={produitName}
                             onChange={e => setProduitName(e.target.value)}
                         />
+                    </PageColumn>
+                    <PageColumn>
                         <SwitchForm
-                            label="Suivi de stock"
+                            label="Suivi en stock"
                             id="stock_tracking"
                             name="stock_tracking"
                             value={produitTracker}
                             onChange={() => setProduitTracker(!produitTracker)}
                         />
                     </PageColumn>
-                    <PageColumn>
-                        <SelectForm
-                            label="Type"
-                            id="type"
-                            name="type"
-                            list={['Type 1', 'Type 2', 'Type 3']}
-                            value={produitType}
-                            onChange={e => setProduitType(e.targer.value)} 
-                        />
-                    </PageColumn>
                 </Div>
+                <h1>Type</h1>
+                <SelectForm
+                    id="type"
+                    name="type"
+                    list={['Variants', 'Nomenclature']}
+                    value={produitType}
+                    onChange={e => setProduitType(e.targer.value)} 
+                />
             </PageColumn>
             <PageColumn>
                 <LineChart data={datasetCommande} labels={labels} title='Commandes des 3 dernières semaines' />

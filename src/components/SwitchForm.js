@@ -16,7 +16,7 @@ export default SwitchForm;
 const Label = styled.label`
     font-weight: bold;
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 20px;
     text-align: left;
 `;
 

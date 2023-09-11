@@ -34,11 +34,11 @@ const Slider = ({ open, handleMenu, side = 'left' }) => {
                                 </LinkContainer>
                             </LinkStyled>
                             <LinkContainer onClick={() => { handleMenu() } }>
-                                <Icon path={mdiAlphaCBox} size={1} color="green" />
+                                <Icon path={mdiAlphaCBox} size={1} color="grey" />
                                 <P>Comptabilité</P>
                             </LinkContainer>
                             <LinkContainer onClick={() => { handleMenu() } }>
-                                <Icon path={mdiAlphaPBox} size={1} color="green" />
+                                <Icon path={mdiAlphaPBox} size={1} color="grey" />
                                 <P>Paie</P>
                             </LinkContainer>
                         </LinksSlider>
