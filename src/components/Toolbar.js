@@ -57,7 +57,7 @@ export default Toolbar;
 const Div = styled.div`
     display: flex;
     justify-content: space-between;
-    border-bottom: 3px solid #ccc;
+    border-bottom: 3px solid #007E45;
     padding: 10px;
 `;
 

@@ -2,30 +2,34 @@ import React from "react";
 import styled from "styled-components";
 import PageColumn from "../components/PageColumn";
 import InputForm from "../components/InputForm";
-import SelectForm from "../components/SelectForm";
 import SwitchForm from "../components/SwitchForm";
-import MenuDropDown from "../components/MenuDropDown";
+import ButtonAction from "../components/ButtonAction";
 import LineChart from "../components/LineChart";
+import TablePaged from "../components/TablePaged";
+import GroupButton from "../components/GroupButton";
+import HintText from "../components/HintText";
+import ModalAction from "../components/ModalAction";
 
 const DetailProduit = () => {
     const [search, setSearch] = React.useState('')
-    const [selection, setSelection] = React.useState('Infos')
-    // const [filteredData, setFilteredData] = React.useState([])
-    const [produitName, setProduitName] = React.useState('Produit 1')
-    const [produitType, setProduitType] = React.useState('Variants')
+    const [produitName, setProduitName] = React.useState('T-shirt oversize')
+    const [produitVariant, setProduitVariant] = React.useState('Bleu')
     const [produitTracker, setProduitTracker] = React.useState(true)
-
-    // React.useEffect(() => {
-    //     setFilteredData(produitsData.filter(item => item.name.includes(search)))
-    // }, [search])
+    const [modalVariant, setModalVariant] = React.useState(false)
+    const [dataModalVariant, setDataModalVariant] = React.useState({ name: '', ref: '', stock: '', price: '', price_ht: ''})
+    const [modalBundle, setModalBundle] = React.useState(false)
+    const [dataModalBundle, setDataModalBundle] = React.useState({ name: '', sell_price: ''})
 
     React.useEffect(() => {
-        console.log({produitName: produitName, produitType: produitType, produitTracker: produitTracker})
-    }, [produitTracker])
+        console.log({produitName: produitName, produitVariant: produitVariant, produitTracker: produitTracker})
+    }, [produitName, produitVariant, produitTracker])
 
-    // const produitData = { id: 1, name: 'Produit 1', type: 'Type 1', stock_tracking: true }
+    React.useEffect(() => {
+        console.log(dataModalVariant)
+    }, [dataModalVariant])
+
     const menu = [{ name: 'Infos' }, {name: 'Type' }, {name: 'Stock' },]
-    const labels = ['21/08/23 - 27/08/23', '28/08/23 - 03/09/23', '04/09/23 - 10/09/23']
+    const labels = ['21/08', '28/08', '04/09']
     const datasetCommande = [{
         data: [
             10,
@@ -44,12 +48,22 @@ const DetailProduit = () => {
         borderColor: 'rgb(53, 162, 235)',
         backgroundColor: 'rgba(53, 162, 235)',
     }]
+    const variantsData = [
+        { name: 'Bleu', ref: 'TSHIRTOVERB', stock: 23, price: 11.99, price_ht: 18.99 },
+        { name: 'Jaune', ref: 'TSHIRTOVERJ', stock: 9, price: 10.59, price_ht: 17.99 }
+    ]
+    const bundlesData = [
+        { name: 'Ensemble jaune', sell_price: 18.99 },
+        { name: 'Ensemble t-shirt jaune + short noir', sell_price: 18.99 }
+    ]
     return (
         <Div>
             <PageColumn>
-                <MenuDropDown menu={menu} callback={setSelection} />
+                <HintText text="Produit créé le 10/07/2023<br/>Denière modification 10/07/2023<br/>commandé 56 fois" />
+                <LineChart data={datasetCommande} labels={labels} title='Commandes des 3 dernières semaines' />
+                <LineChart data={datasetRetours} labels={labels} title='Retours des 3 dernières semaines' />
             </PageColumn>
-            <PageColumn flex={2}>
+            <PageColumn flex={3}>
                 <InputForm
                     label="Rechercher"
                     type="text"
@@ -82,18 +96,70 @@ const DetailProduit = () => {
                         />
                     </PageColumn>
                 </Div>
-                <h1>Type</h1>
-                <SelectForm
-                    id="type"
-                    name="type"
-                    list={['Variants', 'Nomenclature']}
-                    value={produitType}
-                    onChange={e => setProduitType(e.targer.value)} 
+                <DivSpaceBetween>
+                    <H1>Variants</H1>
+                    <ButtonAction text="Ajouter variant" icon={true} onClick={() => setModalVariant(true)} />
+                </DivSpaceBetween>
+                {modalVariant ? <ModalAction 
+                        title="Ajout de variant"
+                        model={[
+                            {name: 'Nom', value: 'name'},
+                            {name: 'Référence', value: 'ref'},
+                            {name: 'Stock', value: 'stock'},
+                            {name: 'Prix TTC', value: 'price'},
+                            {name: 'Prix HT', value: 'price_ht'},
+                        ]}
+                        data={dataModalVariant}
+                        button="Valider"
+                        onChange={e => setDataModalVariant({...dataModalVariant, [e.target.name]: e.target.value})}
+                        submit={() => {setModalVariant(false);}}
+                    /> : null}
+                {variantsData ? <TablePaged
+                    data={variantsData}
+                    headers={[
+                        { name: 'Nom', value: 'name' },
+                        { name: 'Référence', value: 'ref' },
+                        { name: 'Stock', value: 'stock' },
+                        { name: 'Prix TTC', value: 'price' },
+                        { name: 'Prix HT', value: 'price_ht' },
+                        { name: '', value: 'actions' }
+                    ]}
+                    itemsPerPage={5}
+                    actions={[{ callback: () => console.log('Supprimer') }]}
+                /> : null}
+                <DivSpaceBetween>
+                    <H1>Bundles</H1>
+                    <ButtonAction text="Ajouter dans un bundle" icon={true} onClick={() => setModalBundle(true)} />
+                </DivSpaceBetween>
+                {modalBundle ? <ModalAction 
+                        title="Ajout de bundle"
+                        model={[
+                            {name: 'Nom', value: 'name'},
+                            {name: 'Prix de vente', value: 'sell_price'}
+                        ]}
+                        data={dataModalBundle}
+                        button="Valider"
+                        onChange={e => setDataModalBundle({...dataModalBundle, [e.target.name]: e.target.value})}
+                        submit={() => {setModalBundle(false);}}
+                    /> : null}
+                <GroupButton
+                    buttons={variantsData.map((variant, index) => (
+                        { text: variant.name, onClick: () => setProduitVariant(variant.name) }
+                    ))}
+                    defaultButton={produitVariant}
                 />
+                {bundlesData ? <TablePaged
+                    data={bundlesData}
+                    headers={[
+                        { name: 'Nom', value: 'name' },
+                        { name: 'Prix de vente', value: 'sell_price' },
+                        { name: '', value: 'actions' }
+                    ]}
+                    itemsPerPage={5}
+                    actions={[{ callback: () => console.log('Supprimer') }]}
+                /> : null}
             </PageColumn>
             <PageColumn>
-                <LineChart data={datasetCommande} labels={labels} title='Commandes des 3 dernières semaines' />
-                <LineChart data={datasetRetours} labels={labels} title='Retours des 3 dernières semaines' />
             </PageColumn>
     </Div>
     );
@@ -105,4 +171,19 @@ const Div = styled.div`
     flex-direction: row;
     justify-content: space-between;
     padding: 10px;
+`;
+
+const DivSpaceBetween = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+`;
+
+const DivGroupButton = styled.div`
+    display: flex;
+    flex-direction: row;
+`;
+
+const H1 = styled.h1`
+    margin: 0;
 `;

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import Icon from '@mdi/react';
+import { mdiDelete } from '@mdi/js';
 
-const TablePaged = ({ data, headers, itemsPerPage, rowClick }) => {
+const TablePaged = ({ data, headers, itemsPerPage, rowClick, actions }) => {
     const [currentPage, setCurrentPage] = useState(0);
 
     const handlePageChange = ({ selected }) => {
@@ -47,7 +49,15 @@ const TablePaged = ({ data, headers, itemsPerPage, rowClick }) => {
                         {currentPageData.map((row, index) => (
                             <TableRow key={index}>
                                 {headers ? headers.map((header, index) => (
-                                    <TableCell key={index} onClick={() => {executeRowClick()}}>{row[header.value]}</TableCell>
+                                    <TableCell key={index} onClick={() => {executeRowClick()}}>
+                                        {
+                                            header.value === 'actions' ?
+                                            actions.map((action, index) => (
+                                                <Icon key={index} path={mdiDelete} size={1} color="black" onClick={action.callback} />
+                                            )) :
+                                            row[header.value]
+                                        }
+                                    </TableCell>
                                 )) : null}
                             </TableRow>
                         ))}
