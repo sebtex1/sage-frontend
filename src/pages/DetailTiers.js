@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import InputForm from '../components/InputForm'
 import PageColumn from '../components/PageColumn'
+import InputForm from '../components/InputForm'
 
 const DetailTiers = () => {
   return (

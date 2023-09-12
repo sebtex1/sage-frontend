@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useNavigate } from 'react-router-dom'
 import PageColumn from '../components/PageColumn'
 import InputForm from '../components/InputForm'
 import SwitchForm from '../components/SwitchForm'
@@ -27,7 +28,8 @@ const DetailProduit = () => {
   const [dataModalBundle, setDataModalBundle] = React.useState({
     bundleToAdd: '',
   })
-  const [modalSupprimer, setModalSupprimer] = React.useState(false)
+  const [modalVariantSuppr, setModalVariantSuppr] = React.useState(false)
+  const [modalBundleSuppr, setModalBundleSuppr] = React.useState(false)
 
   React.useEffect(() => {
     console.log({ produitName, produitVariant, produitTracker })
@@ -41,7 +43,7 @@ const DetailProduit = () => {
     console.log(dataModalBundle)
   }, [dataModalBundle])
 
-  // const menu = [{ name: 'Infos' }, { name: 'Type' }, { name: 'Stock' }]
+  const navigate = useNavigate()
   const labels = ['21/08', '28/08', '04/09']
   const datasetCommande = [
     {
@@ -59,6 +61,7 @@ const DetailProduit = () => {
   ]
   const variantsData = [
     {
+      id: 1,
       name: 'Bleu',
       ref: 'TSHIRTOVERB',
       stock: 23,
@@ -66,6 +69,7 @@ const DetailProduit = () => {
       price_ht: 18.99,
     },
     {
+      id: 2,
       name: 'Jaune',
       ref: 'TSHIRTOVERJ',
       stock: 9,
@@ -173,18 +177,19 @@ const DetailProduit = () => {
                 { name: '', value: 'actions' },
               ]}
               itemsPerPage={5}
-              actions={[{ callback: () => setModalSupprimer(true) }]}
+              rowClick={(object) => navigate(`/variant/${object.id}`)}
+              actions={[{ callback: () => setModalVariantSuppr(true) }]}
             />
-            {modalSupprimer ? (
+            {modalVariantSuppr ? (
               <ModalAction
                 title="Suppression de variant"
                 text={`Êtes-vous sûr de vouloir supprimer le variant ${produitVariant} ?`}
                 button="Supprimer"
                 submit={() => {
-                  setModalSupprimer(false)
+                  setModalVariantSuppr(false)
                 }}
                 cancel={() => {
-                  setModalSupprimer(false)
+                  setModalVariantSuppr(false)
                 }}
               />
             ) : null}
@@ -241,7 +246,20 @@ const DetailProduit = () => {
               { name: '', value: 'actions' },
             ]}
             itemsPerPage={5}
-            actions={[{ callback: () => console.log('Supprimer') }]}
+            actions={[{ callback: () => setModalBundleSuppr(true) }]}
+          />
+        ) : null}
+        {modalBundleSuppr ? (
+          <ModalAction
+            title="Suppression de bundle"
+            text="Êtes-vous sûr de vouloir supprimer le bundle ?"
+            button="Supprimer"
+            submit={() => {
+              setModalBundleSuppr(false)
+            }}
+            cancel={() => {
+              setModalBundleSuppr(false)
+            }}
           />
         ) : null}
       </PageColumn>

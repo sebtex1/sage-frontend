@@ -19,6 +19,9 @@ const GestionCommerciale = () => {
       <button>
         <Link to="/tiers/detail">Détail tiers</Link>
       </button>
+      <button>
+        <Link to="/variant">Variant</Link>
+      </button>
     </div>
   )
 }

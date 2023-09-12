@@ -29,9 +29,9 @@ const TablePaged = ({ data, headers, itemsPerPage, rowClick, actions }) => {
     }
     return pages
   }
-  const executeRowClick = () => {
+  const executeRowClick = (object) => {
     if (rowClick !== undefined) {
-      rowClick()
+      rowClick(object)
     }
   }
   return (
@@ -55,7 +55,7 @@ const TablePaged = ({ data, headers, itemsPerPage, rowClick, actions }) => {
                       <TableCell
                         key={indexHeader}
                         onClick={() => {
-                          executeRowClick()
+                          executeRowClick(row)
                         }}
                       >
                         {header.value === 'actions'

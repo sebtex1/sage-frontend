@@ -10,6 +10,7 @@ import DetailDocument from './pages/DetailDocument'
 import Produits from './pages/Produits'
 import DetailProduit from './pages/DetailProduit'
 import DetailTiers from './pages/DetailTiers'
+import Variant from './pages/Variant'
 import NotFound from './pages/NotFound'
 
 const router = createBrowserRouter([
@@ -79,6 +80,14 @@ const router = createBrowserRouter([
     element: (
       <Default>
         <DetailTiers />
+      </Default>
+    ),
+  },
+  {
+    path: 'variant/:id',
+    element: (
+      <Default>
+        <Variant />
       </Default>
     ),
   },
