@@ -25,9 +25,9 @@ function DetailProduit() {
   })
   const [modalBundle, setModalBundle] = React.useState(false)
   const [dataModalBundle, setDataModalBundle] = React.useState({
-    name: '',
-    sell_price: '',
+    bundleToAdd: '',
   })
+  const [modalSupprimer, setModalSupprimer] = React.useState(false)
 
   React.useEffect(() => {
     console.log({ produitName, produitVariant, produitTracker })
@@ -36,6 +36,10 @@ function DetailProduit() {
   React.useEffect(() => {
     console.log(dataModalVariant)
   }, [dataModalVariant])
+
+  React.useEffect(() => {
+    console.log(dataModalBundle)
+  }, [dataModalBundle])
 
   // const menu = [{ name: 'Infos' }, { name: 'Type' }, { name: 'Stock' }]
   const labels = ['21/08', '28/08', '04/09']
@@ -73,6 +77,7 @@ function DetailProduit() {
     { name: 'Ensemble jaune', sell_price: 18.99 },
     { name: 'Ensemble t-shirt jaune + short noir', sell_price: 18.99 },
   ]
+  const listBundle = ['Ensemble jaune', 'Ensemble t-shirt jaune + short noir']
   return (
     <Div>
       <PageColumn>
@@ -150,22 +155,40 @@ function DetailProduit() {
             submit={() => {
               setModalVariant(false)
             }}
+            cancel={() => {
+              setModalVariant(false)
+            }}
           />
         ) : null}
         {variantsData ? (
-          <TablePaged
-            data={variantsData}
-            headers={[
-              { name: 'Nom', value: 'name' },
-              { name: 'Référence', value: 'ref' },
-              { name: 'Stock', value: 'stock' },
-              { name: 'Prix TTC', value: 'price' },
-              { name: 'Prix HT', value: 'price_ht' },
-              { name: '', value: 'actions' },
-            ]}
-            itemsPerPage={5}
-            actions={[{ callback: () => console.log('Supprimer') }]}
-          />
+          <>
+            <TablePaged
+              data={variantsData}
+              headers={[
+                { name: 'Nom', value: 'name' },
+                { name: 'Référence', value: 'ref' },
+                { name: 'Stock', value: 'stock' },
+                { name: 'Prix TTC', value: 'price' },
+                { name: 'Prix HT', value: 'price_ht' },
+                { name: '', value: 'actions' },
+              ]}
+              itemsPerPage={5}
+              actions={[{ callback: () => setModalSupprimer(true) }]}
+            />
+            {modalSupprimer ? (
+              <ModalAction
+                title="Suppression de variant"
+                text={`Êtes-vous sûr de vouloir supprimer le variant ${produitVariant} ?`}
+                button="Supprimer"
+                submit={() => {
+                  setModalSupprimer(false)
+                }}
+                cancel={() => {
+                  setModalSupprimer(false)
+                }}
+              />
+            ) : null}
+          </>
         ) : null}
         <DivSpaceBetween>
           <H1>Bundles</H1>
@@ -177,10 +200,14 @@ function DetailProduit() {
         </DivSpaceBetween>
         {modalBundle ? (
           <ModalAction
-            title="Ajout de bundle"
+            title="Ajout dans un bundle"
             model={[
-              { name: 'Nom', value: 'name' },
-              { name: 'Prix de vente', value: 'sell_price' },
+              {
+                name: 'Bundle',
+                value: 'bundleToAdd',
+                type: 'select',
+                list: listBundle,
+              },
             ]}
             data={dataModalBundle}
             button="Valider"
@@ -191,6 +218,9 @@ function DetailProduit() {
               })
             }
             submit={() => {
+              setModalBundle(false)
+            }}
+            cancel={() => {
               setModalBundle(false)
             }}
           />

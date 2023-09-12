@@ -6,10 +6,6 @@ import { mdiDelete } from '@mdi/js'
 function TablePaged({ data, headers, itemsPerPage, rowClick, actions }) {
   const [currentPage, setCurrentPage] = useState(0)
 
-  //   const handlePageChange = ({ selected }) => {
-  //     setCurrentPage(selected)
-  //   }
-
   const offset = currentPage * itemsPerPage
   const currentPageData = data.slice(offset, offset + itemsPerPage)
   const pageCount = Math.ceil(data.length / itemsPerPage)

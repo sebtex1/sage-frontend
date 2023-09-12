@@ -1,8 +1,18 @@
 import React from 'react'
 import styled from 'styled-components'
 import InputForm from './InputForm'
+import SelectForm from './SelectForm'
 
-function ModalAction({ title, model, data, button, onChange, submit }) {
+function ModalAction({
+  title,
+  model,
+  text,
+  data,
+  button,
+  onChange,
+  submit,
+  cancel,
+}) {
   return (
     <Modal>
       <ModalContent>
@@ -10,20 +20,33 @@ function ModalAction({ title, model, data, button, onChange, submit }) {
           <ModalTitle>{title}</ModalTitle>
         </ModalHeader>
         <ModalBody>
-          {model.map((item, index) => (
+          {text ? <p>{text}</p> : null}
+          {model?.map((item, index) => (
             <div key={index}>
-              <InputForm
-                label={item.name}
-                id={item.name}
-                name={item.value}
-                value={data[item.value]}
-                onChange={onChange}
-              />
+              {item.type === 'select' ? (
+                <SelectForm
+                  label={item.name}
+                  id={item.name}
+                  name={item.value}
+                  value={data[item.value]}
+                  onChange={onChange}
+                  list={item.list}
+                />
+              ) : (
+                <InputForm
+                  label={item.name}
+                  id={item.name}
+                  name={item.value}
+                  value={data[item.value]}
+                  onChange={onChange}
+                />
+              )}
             </div>
           ))}
         </ModalBody>
         <ModalFooter>
-          <Button onClick={submit}>{button}</Button>
+          <ButtonSubmit onClick={submit}>{button}</ButtonSubmit>
+          <ButtonCancel onClick={cancel}>Annuler</ButtonCancel>
         </ModalFooter>
       </ModalContent>
     </Modal>
@@ -71,7 +94,7 @@ const ModalFooter = styled.div`
   margin-top: 20px;
 `
 
-const Button = styled.button`
+const ButtonSubmit = styled.button`
   display: flex;
   align-items: center;
   height: 28px;
@@ -86,5 +109,24 @@ const Button = styled.button`
   margin: 10px 0;
   &:hover {
     background-color: #82e39d;
+  }
+`
+
+const ButtonCancel = styled.button`
+  display: flex;
+  align-items: center;
+  height: 28px;
+  font-weight: bold;
+  font-size: 13px;
+  text-align: center;
+  background-color: #f1cdd7;
+  border: none;
+  color: #1f1f1f;
+  cursor: pointer;
+  transition: 0.3s;
+  margin: 10px 0;
+  margin-left: 10px;
+  &:hover {
+    background-color: #e39da4;
   }
 `
