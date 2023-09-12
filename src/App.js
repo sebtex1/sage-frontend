@@ -14,6 +14,8 @@ import Produits from "./pages/Produits";
 import DetailProduit from "./pages/DetailProduit";
 import DetailTiers from "./pages/DetailTiers";
 import NotFound from "./pages/NotFound";
+import Signin from "./components/Signin";
+import Signout from "./components/Signout";
 
 const router = createBrowserRouter([
     {
@@ -52,6 +54,14 @@ const router = createBrowserRouter([
     {
         path: "/tiers/detail",
         element: <Default><DetailTiers /></Default>,
+    },
+    {
+        path: "/signin-oidc",
+        element: <Signin />
+    },
+    {
+        path: "/signout-oidc",
+        element: <Signout />
     },
     {
         path: "*",

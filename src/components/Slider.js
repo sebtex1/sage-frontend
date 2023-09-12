@@ -14,6 +14,14 @@ import { mdiCogOutline } from '@mdi/js';
 import { mdiPower } from '@mdi/js';
 
 const Slider = ({ open, handleMenu, side = 'left' }) => {
+    const [isConnected, setIsConnected] = React.useState('');
+
+    React.useEffect(() => {
+        if (isConnected === ''){
+            setIsConnected(localStorage.getItem('id_token'));
+        }
+    }, [isConnected])
+
     return (
         <>
             { side === 'left' ?
@@ -67,18 +75,36 @@ const Slider = ({ open, handleMenu, side = 'left' }) => {
                     </BottomSlider>
                 </SliderContainerLeft> : 
                 <SliderContainerRight $right={open ? '25px' : '0'}>
-                    <TopSlider>
-                        <LinksSlider>
-                            <LinkContainer onClick={() => { handleMenu() }}>
-                                <Icon path={mdiCogOutline} size={1} color="black" />
-                                <LinkStyled to="/settings">Settings</LinkStyled>
-                            </LinkContainer>
-                            <LinkContainer onClick={() => { handleMenu() }}>
-                                <Icon path={mdiPower} size={1} color="black" />
-                                <P>Déconnexion</P>
-                            </LinkContainer>
-                        </LinksSlider>
-                    </TopSlider>
+                    {
+                        isConnected
+                        ? 
+                            <TopSlider>
+                                <LinksSlider>
+                                    <LinkContainer onClick={() => { handleMenu() }}>
+                                        <Icon path={mdiCogOutline} size={1} color="black" />
+                                        <LinkStyled to="/settings">Settings</LinkStyled>
+                                    </LinkContainer>
+                                <LinkStyled to={`https://localhost:7000/connect/endsession?id_token_hint=${isConnected}&post_logout_redirect_uri=http://localhost:3000/signout-oidc`}>
+                                    <LinkContainer onClick={() => { handleMenu() }}>
+                                        <Icon path={mdiPower} size={1} color="black" />
+                                        <P>Déconnexion</P>
+                                    </LinkContainer>
+                                </LinkStyled>
+                                </LinksSlider>
+                            </TopSlider>
+                        : 
+                        <TopSlider>
+                            <LinksSlider>
+                                <LinkStyled to="https://localhost:7000/connect/authorize?client_id=WebApplication&scope=openid super_admin admin user offline_access&response_type=code&redirect_uri=http://localhost:3000/signin-oidc&prompt=login">
+                                    <LinkContainer onClick={() => { handleMenu() }}>
+                                        <Icon path={mdiPower} size={1} color="black" />
+                                        <P>Connexion</P>
+                                    </LinkContainer>
+                                </LinkStyled>
+                            </LinksSlider>
+                        </TopSlider>
+                    }
+                    
                 </SliderContainerRight> 
             }
         </>
