@@ -11,6 +11,7 @@ import Produits from './pages/Produits'
 import DetailProduit from './pages/DetailProduit'
 import DetailTiers from './pages/DetailTiers'
 import Variant from './pages/Variant'
+import Bundle from './pages/Bundle'
 import NotFound from './pages/NotFound'
 
 const router = createBrowserRouter([
@@ -88,6 +89,14 @@ const router = createBrowserRouter([
     element: (
       <Default>
         <Variant />
+      </Default>
+    ),
+  },
+  {
+    path: 'bundle/:id',
+    element: (
+      <Default>
+        <Bundle />
       </Default>
     ),
   },

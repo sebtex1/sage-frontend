@@ -78,8 +78,8 @@ const DetailProduit = () => {
     },
   ]
   const bundlesData = [
-    { name: 'Ensemble jaune', sell_price: 18.99 },
-    { name: 'Ensemble t-shirt jaune + short noir', sell_price: 18.99 },
+    { id: 1, name: 'Ensemble jaune', sell_price: 18.99 },
+    { id: 2, name: 'Ensemble t-shirt jaune + short noir', sell_price: 18.99 },
   ]
   const listBundle = ['Ensemble jaune', 'Ensemble t-shirt jaune + short noir']
   return (
@@ -246,6 +246,7 @@ const DetailProduit = () => {
               { name: '', value: 'actions' },
             ]}
             itemsPerPage={5}
+            rowClick={(object) => navigate(`/bundle/${object.id}`)}
             actions={[{ callback: () => setModalBundleSuppr(true) }]}
           />
         ) : null}
