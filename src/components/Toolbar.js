@@ -6,7 +6,7 @@ import { mdiMenu, mdiMenuOpen, mdiFilePlusOutline } from '@mdi/js'
 
 import Slider from './Slider'
 
-function Toolbar() {
+const Toolbar = () => {
   const [openMenu, setOpenMenu] = React.useState(false)
   const [openAccount, setOpenAccount] = React.useState(false)
 

@@ -5,7 +5,7 @@ import PageColumn from '../components/PageColumn'
 import InputForm from '../components/InputForm'
 import TablePaged from '../components/TablePaged'
 
-function Produits() {
+const Produits = () => {
   const [search, setSearch] = React.useState('')
   const [filteredData, setFilteredData] = React.useState([])
 

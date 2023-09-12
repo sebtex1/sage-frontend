@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import InputForm from '../components/InputForm'
 import PageColumn from '../components/PageColumn'
 
-function DetailTiers() {
+const DetailTiers = () => {
   return (
     <Div>
       <PageColumn>

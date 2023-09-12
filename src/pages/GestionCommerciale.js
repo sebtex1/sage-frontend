@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-function GestionCommerciale() {
+const GestionCommerciale = () => {
   return (
     <div>
       <h1>Gestion Commerciale</h1>

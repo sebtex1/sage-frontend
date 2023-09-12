@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import InputForm from '../components/InputForm'
 import PageColumn from '../components/PageColumn'
 
-function DetailDocument() {
+const DetailDocument = () => {
   return (
     <>
       <Div>

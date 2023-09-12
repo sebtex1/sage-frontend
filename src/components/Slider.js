@@ -15,7 +15,7 @@ import {
   mdiPower,
 } from '@mdi/js'
 
-function Slider({ open, handleMenu, side = 'left' }) {
+const Slider = ({ open, handleMenu, side = 'left' }) => {
   return (
     <div>
       {side === 'left' ? (

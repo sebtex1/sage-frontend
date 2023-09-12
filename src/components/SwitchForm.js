@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-function SwitchForm({ label, id, name, value = false, onChange }) {
+const SwitchForm = ({ label, id, name, value = false, onChange }) => {
   return (
     <div>
       <Label htmlFor={id}>{label}</Label>

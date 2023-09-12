@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-function ButtonForm({ type = '', value }) {
+const ButtonForm = ({ type = '', value }) => {
   return <Button type={type}>{value}</Button>
 }
 export default ButtonForm

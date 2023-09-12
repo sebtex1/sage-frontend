@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-function GroupButton({ buttons, defaultButton }) {
+const GroupButton = ({ buttons, defaultButton }) => {
   return (
     <ButtonGroup>
       {buttons.map((button, index) => (

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import InputForm from './InputForm'
 import SelectForm from './SelectForm'
 
-function ModalAction({
+const ModalAction = ({
   title,
   model,
   text,
@@ -12,7 +12,7 @@ function ModalAction({
   onChange,
   submit,
   cancel,
-}) {
+}) => {
   return (
     <Modal>
       <ModalContent>

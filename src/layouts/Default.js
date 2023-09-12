@@ -1,7 +1,7 @@
 import React from 'react'
 import Toolbar from '../components/Toolbar'
 
-function Default({ children }) {
+const Default = ({ children }) => {
   return (
     <>
       <div>

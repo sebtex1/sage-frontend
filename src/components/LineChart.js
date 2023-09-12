@@ -11,7 +11,7 @@ import {
 } from 'chart.js'
 import { Line } from 'react-chartjs-2'
 
-function Chart({ data = [], labels = [], title }) {
+const Chart = ({ data = [], labels = [], title }) => {
   ChartJS.register(
     CategoryScale,
     LinearScale,

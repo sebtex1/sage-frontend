@@ -6,7 +6,7 @@ import PageColumn from '../components/PageColumn'
 import TablePaged from '../components/TablePaged'
 import MenuDropDown from '../components/MenuDropDown'
 
-function Documents() {
+const Documents = () => {
   const [search, setSearch] = React.useState('')
   const [document, setDocument] = React.useState('devis')
   const [filteredData, setFilteredData] = React.useState([])

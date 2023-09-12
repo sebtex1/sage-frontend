@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-function MenuDropDown({ menu = [], callback }) {
+const MenuDropDown = ({ menu = [], callback }) => {
   const [rowIndex, setRowIndex] = React.useState(0)
   return (
     <div>

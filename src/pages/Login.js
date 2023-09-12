@@ -3,11 +3,10 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import Icon from '@mdi/react'
 import { mdiEyeOffOutline, mdiEyeOutline } from '@mdi/js'
-
 import ButtonForm from '../components/ButtonForm'
 import InputForm from '../components/InputForm'
 
-function Login() {
+const Login = () => {
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [showPassword, setShowPassword] = React.useState(false)

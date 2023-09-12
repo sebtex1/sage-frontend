@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Icon from '@mdi/react'
 import { mdiDelete } from '@mdi/js'
 
-function TablePaged({ data, headers, itemsPerPage, rowClick, actions }) {
+const TablePaged = ({ data, headers, itemsPerPage, rowClick, actions }) => {
   const [currentPage, setCurrentPage] = useState(0)
 
   const offset = currentPage * itemsPerPage

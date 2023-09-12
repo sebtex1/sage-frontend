@@ -5,7 +5,7 @@ import { mdiChevronLeft, mdiChevronRight } from '@mdi/js'
 
 import PageColumn from '../components/PageColumn'
 
-function Setting() {
+const Setting = () => {
   const [users, setUsers] = useState([
     { name: 'Lucas STROHL', role: 'Collaborator', checked: false },
     { name: 'Olivier COUJANDASSAMY', role: 'Collaborator', checked: false },

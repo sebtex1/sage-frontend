@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-function InputForm({
+const InputForm = ({
   label,
   type,
   id,
@@ -9,7 +9,7 @@ function InputForm({
   required = false,
   onChange,
   placeholder = null,
-}) {
+}) => {
   return (
     <div>
       <Label htmlFor={id}>{label}</Label>

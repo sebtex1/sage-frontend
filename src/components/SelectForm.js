@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-function SelectForm({ label, id, name, list, value, onChange }) {
+const SelectForm = ({ label, id, name, list, value, onChange }) => {
   return (
     <div>
       <Label htmlFor={id}>{label}</Label>

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-function HintText({ text }) {
+const HintText = ({ text }) => {
   return <Hint dangerouslySetInnerHTML={{ __html: text }} />
 }
 export default HintText

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-function PageColumn({ children, flex }) {
+const PageColumn = ({ children, flex }) => {
   return <Main $flex={flex}>{children}</Main>
 }
 export default PageColumn

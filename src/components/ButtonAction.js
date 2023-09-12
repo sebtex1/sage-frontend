@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Icon from '@mdi/react'
 import { mdiPlus } from '@mdi/js'
 
-function ButtonAction({ onClick, text, icon = false }) {
+const ButtonAction = ({ onClick, text, icon = false }) => {
   return (
     <Button onClick={onClick}>
       {icon ? <Icon path={mdiPlus} size={1} color="#1F1F1F" /> : null}
