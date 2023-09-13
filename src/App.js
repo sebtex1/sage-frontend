@@ -13,6 +13,8 @@ import DetailTiers from './pages/DetailTiers'
 import Variant from './pages/Variant'
 import Bundle from './pages/Bundle'
 import NotFound from './pages/NotFound'
+import Signin from "./components/Signin";
+import Signout from "./components/Signout";
 
 const router = createBrowserRouter([
   {
@@ -99,6 +101,14 @@ const router = createBrowserRouter([
         <Bundle />
       </Default>
     ),
+  },
+  {
+      path: "/signin-oidc",
+      element: <Signin />
+  },
+  {
+      path: "/signout-oidc",
+      element: <Signout />
   },
   {
     path: '*',
