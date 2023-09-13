@@ -4,96 +4,55 @@ import PageColumn from '../components/PageColumn';
 import Icon from '@mdi/react';
 import { mdiChevronLeft } from '@mdi/js';
 import { mdiChevronRight } from '@mdi/js';
+import axios from 'axios';
+import HttpRequest from '../functions/HttpRequest';
+import UserService from '../services/UserService';
+import { Link } from 'react-router-dom'
+import UserAccess from './UserAccess';
+import Accounts from './Accounts';
 
 const Setting = () => {
-    const [users, setUsers] = useState([
-        { name: 'Lucas STROHL', role: 'Collaborator', checked: false },
-        { name: 'Olivier COUJANDASSAMY', role: 'Collaborator', checked: false }
-    ])
-    const [checkAllState, setCheckAllState] = useState(false)
-
-    useEffect(() => {
-        console.log(users)
-    }, [users])
-
-    const checkOne = (index) => {
-        setUsers(users.map((user, i) => {
-            if (i === index) {
-                return {
-                    ...user,
-                    checked: !user.checked
-                }
-            }
-            return user
-        }))
-    }
-
-    // Buged n'affiche jamais le bon état
-    const checkAll = async () => {
-        await setCheckAllState(!checkAllState)
-        setUsers(users.map((user) => {
-            return {
-                ...user,
-                checked: checkAllState
-            }
-        }))
-    }
+    const [page, setPage] = useState('account');
+    const [userMe, setUserMe] = useState({});
+    const scope = localStorage.getItem('scope');
+    useEffect(() => {  
+        console.log('GetUserMe');
+        UserService.GetUserMe(setUserMe);
+        }, [])
+    
 
     return (
         <>
             <User>
                 <Img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" />
                 <UserName>
-                    <Name>Sébastien TEXIER</Name>
-                    <Role>Admin</Role>
+                    <Name>{`${userMe.lastName} ${userMe.firstName}`}</Name>
+                    <Role>{userMe.role}</Role>
                 </UserName>
             </User>
             <Div>
                 <PageColumn>
-                    <h3>Compte</h3>
-                    <h3>Taxes</h3>
+                    <button onClick={() => setPage('account')}>Mon compte</button>
+                    {
+                        scope.includes('super_admin')
+                        ? <button onClick={() => setPage('user_access')}>Gestion des accèss</button>
+                        : null
+                    }
+                    <button>Taxes</button>
                 </PageColumn>
                 <PageColumn flex={2}>
-                    <Div>
-                        <Title>Gestion des accèss</Title>
-                        <AddButton>Ajouter un utilisateur</AddButton>
-                    </Div>
-                    <CardManageAccess>
-                        <FirstRow>
-                            <SelectAll>
-                                <input type="checkbox" defaultChecked={checkAllState} onClick={checkAll} />
-                                <p>Tout sélectionner</p>
-                            </SelectAll>
-                            <p>Type</p>
-                        </FirstRow>
-                        <SearchRow>
-                            <Search type="text" placeholder="Rechercher un utilisateur" />
-                        </SearchRow>
-                        { 
-                            users.map((user, index) => {
-                                return (
-                                    <Div key={index}>
-                                        <input type="checkbox" defaultChecked={user.checked} onClick={() => { checkOne(index) } } />
-                                        <User>
-                                            <Img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" />
-                                            <UserName>
-                                                <Name>{user.name}</Name>
-                                                <Role>{user.role}</Role>
-                                            </UserName>
-                                        </User>
-                                        <p>Supprimer</p>
-                                    </Div>
-                                )
-                            })
-                        }
-                    </CardManageAccess>
-                    <RowPagination>
+
+                    { page === 'user_access' ? <UserAccess userMe={userMe}/> : null }
+                    { page === 'account' ? <Accounts userMe={userMe} setUserMe={setUserMe}/> : null }
+
+
+                    {/* <RowPagination>
                         <Icon path={mdiChevronLeft} size={1} color="black" />
                         <NumberPagination>1</NumberPagination>
                         <NumberPagination>...</NumberPagination>
                         <NumberPagination>5</NumberPagination>
                         <Icon path={mdiChevronRight} size={1} color="black" />
-                    </RowPagination>
+                    </RowPagination> */}
                 </PageColumn>
                 <PageColumn></PageColumn>
             </Div>
@@ -102,74 +61,19 @@ const Setting = () => {
 }
 export default Setting;
 
+
+const LinkContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+`;
+
 const Div = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     padding: 10px;
-`;
-
-const CardManageAccess = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border: 1px solid black;
-    border-radius: 5px;
-    margin: 10px 0;
-`;
-
-const Title = styled.h1`
-    margin: 0;
-    padding: 0;
-`;
-
-const AddButton = styled.button`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 0 10px 0 10px;
-    font-weight: bold;
-    cursor: pointer;
-    color: white;
-    background-color: rgb(0, 126, 69);
-    transition: 0.3s;
-    &:hover {
-        background-color: rgb(0, 101, 55);
-    }
-`;
-
-const FirstRow = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 10px;
-    border-bottom: 1px solid black;
-    border-radius: 5px 5px 0 0;
-    background-color: #E7ECF0;
-`;
-
-const SelectAll = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-`;
-
-const SearchRow = styled.div`
-    display: flex;
-    flex-direction: row;
-    padding: 10px;
-    border-bottom: 1px solid black;
-`;
-
-const Search = styled.input`
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 12px 20px;
-    margin: 0 0 0 10px;
-    box-sizing: border-box;
-    width: 100%;
 `;
 
 const User = styled.div`
@@ -217,4 +121,13 @@ const RowPagination = styled.div`
 const NumberPagination = styled.p`
     margin: 0 10px;
     padding: 0;
+`;
+
+const LinkStyled = styled(Link)`
+    text-decoration: none;
+    color: black;
+    margin: auto 10px;
+    display: block;
+    width: 50px;
+    height: 25px;
 `;

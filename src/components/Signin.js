@@ -32,6 +32,7 @@ const Signin = () => {
                     localStorage.setItem("id_token", result.data.id_token)
                     localStorage.setItem("access_token", result.data.access_token)
                     localStorage.setItem("refresh_token", result.data.refresh_token)
+                    localStorage.setItem("scope", result.data.scope)
                     window.location="/"
                 }
             })
