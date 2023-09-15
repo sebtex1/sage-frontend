@@ -36,7 +36,7 @@ const Produits = () => {
             data={filteredData}
             headers={[{ name: 'Nom', value: 'name' }]}
             itemsPerPage={15}
-            rowClick={() => navigate('/produits/detail')}
+            rowClick={(object) => navigate(`/produits/${object.id}`)}
           />
         ) : null}
       </PageColumn>

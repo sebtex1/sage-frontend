@@ -11,7 +11,7 @@ import GroupButton from '../components/GroupButton'
 import HintText from '../components/HintText'
 import ModalAction from '../components/ModalAction'
 
-const DetailProduit = () => {
+const Produit = () => {
   const [search, setSearch] = React.useState('')
   const [produitName, setProduitName] = React.useState('T-shirt oversize')
   const [produitVariant, setProduitVariant] = React.useState('Bleu')
@@ -268,7 +268,7 @@ const DetailProduit = () => {
     </Div>
   )
 }
-export default DetailProduit
+export default Produit
 
 const Div = styled.div`
   display: flex;

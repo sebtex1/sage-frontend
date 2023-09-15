@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useNavigate } from 'react-router-dom'
 import InputForm from '../components/InputForm'
 import LineChart from '../components/LineChart'
 import PageColumn from '../components/PageColumn'
@@ -21,6 +22,7 @@ const Documents = () => {
     setFilteredData(documentsData[document])
   }, [document])
 
+  const navigate = useNavigate()
   const menu = [
     {
       name: 'Vente',
@@ -35,10 +37,10 @@ const Documents = () => {
     { name: 'Achat', choices: ['1', '2'] },
     { name: '(Stock)', choices: ['1', '2'] },
   ]
-
   const documentsData = {
     devis: [
       {
+        id: 1,
         ref: 'BC202300085',
         date: '16/06/2023',
         client: 'BIJOUSARL',
@@ -46,6 +48,7 @@ const Documents = () => {
         totalHT: '1239.89',
       },
       {
+        id: 2,
         ref: 'BC202300086',
         date: '18/06/2023',
         client: 'BIJOUSARL',
@@ -53,6 +56,7 @@ const Documents = () => {
         totalHT: '1239.89',
       },
       {
+        id: 3,
         ref: 'BC202300087',
         date: '20/06/2023',
         client: 'BIJOUSARL',
@@ -60,440 +64,7 @@ const Documents = () => {
         totalHT: '1239.89',
       },
       {
-        ref: 'BC202300088',
-        date: '20/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300089',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
-        ref: 'BC202300090',
-        date: '22/06/2023',
-        client: 'BIJOUSARL',
-        depot: 'Dépôt Nanterre',
-        totalHT: '1239.89',
-      },
-      {
+        id: 4,
         ref: 'BC202300090',
         date: '22/06/2023',
         client: 'BIJOUSARL',
@@ -501,6 +72,7 @@ const Documents = () => {
         totalHT: '1239.89',
       },
       {
+        id: 5,
         ref: 'BC202300090',
         date: '22/06/2023',
         client: 'BIJOUSARL',
@@ -508,6 +80,7 @@ const Documents = () => {
         totalHT: '1239.89',
       },
       {
+        id: 6,
         ref: 'BC202300090',
         date: '22/06/2023',
         client: 'BIJOUSARL',
@@ -515,6 +88,7 @@ const Documents = () => {
         totalHT: '1239.89',
       },
       {
+        id: 7,
         ref: 'BC202300090',
         date: '22/06/2023',
         client: 'BIJOUSARL',
@@ -522,6 +96,7 @@ const Documents = () => {
         totalHT: '1239.89',
       },
       {
+        id: 8,
         ref: 'BC202300090',
         date: '22/06/2023',
         client: 'BIJOUSARL',
@@ -529,6 +104,7 @@ const Documents = () => {
         totalHT: '1239.89',
       },
       {
+        id: 9,
         ref: 'BC202300090',
         date: '22/06/2023',
         client: 'BIJOUSARL',
@@ -536,6 +112,7 @@ const Documents = () => {
         totalHT: '1239.89',
       },
       {
+        id: 10,
         ref: 'BC202300090',
         date: '22/06/2023',
         client: 'BIJOUSARL',
@@ -543,6 +120,7 @@ const Documents = () => {
         totalHT: '1239.89',
       },
       {
+        id: 11,
         ref: 'BC202300090',
         date: '22/06/2023',
         client: 'BIJOUSARL',
@@ -550,6 +128,7 @@ const Documents = () => {
         totalHT: '1239.89',
       },
       {
+        id: 12,
         ref: 'BC202300090',
         date: '22/06/2023',
         client: 'BIJOUSARL',
@@ -557,6 +136,7 @@ const Documents = () => {
         totalHT: '1239.89',
       },
       {
+        id: 13,
         ref: 'BC202300090',
         date: '22/06/2023',
         client: 'BIJOUSARL',
@@ -564,6 +144,7 @@ const Documents = () => {
         totalHT: '1239.89',
       },
       {
+        id: 14,
         ref: 'BC202300090',
         date: '22/06/2023',
         client: 'BIJOUSARL',
@@ -571,6 +152,7 @@ const Documents = () => {
         totalHT: '1239.89',
       },
       {
+        id: 15,
         ref: 'BC202300090',
         date: '22/06/2023',
         client: 'BIJOUSARL',
@@ -578,6 +160,7 @@ const Documents = () => {
         totalHT: '1239.89',
       },
       {
+        id: 16,
         ref: 'BC202300090',
         date: '22/06/2023',
         client: 'BIJOUSARL',
@@ -585,6 +168,7 @@ const Documents = () => {
         totalHT: '1239.89',
       },
       {
+        id: 17,
         ref: 'BC202300090',
         date: '22/06/2023',
         client: 'BIJOUSARL',
@@ -592,6 +176,7 @@ const Documents = () => {
         totalHT: '1239.89',
       },
       {
+        id: 18,
         ref: 'BC202300090',
         date: '22/06/2023',
         client: 'BIJOUSARL',
@@ -599,6 +184,7 @@ const Documents = () => {
         totalHT: '1239.89',
       },
       {
+        id: 19,
         ref: 'BC202300090',
         date: '22/06/2023',
         client: 'BIJOUSARL',
@@ -608,6 +194,7 @@ const Documents = () => {
     ],
     bonDeCommande: [
       {
+        id: 20,
         ref: 'BC202300085',
         date: '16/06/2023',
         client: 'BIJOUSARL',
@@ -615,6 +202,7 @@ const Documents = () => {
         totalHT: '1239.89',
       },
       {
+        id: 21,
         ref: 'BC202300086',
         date: '18/06/2023',
         client: 'BIJOUSARL',
@@ -622,6 +210,7 @@ const Documents = () => {
         totalHT: '1239.89',
       },
       {
+        id: 22,
         ref: 'BC202300087',
         date: '20/06/2023',
         client: 'BIJOUSARL',
@@ -630,7 +219,6 @@ const Documents = () => {
       },
     ],
   }
-
   const getCountByDate = (data, date) =>
     data.filter((item) => item.date === date).length
 
@@ -699,7 +287,8 @@ const Documents = () => {
               { name: 'Dépôt', value: 'depot' },
               { name: 'Total HT', value: 'totalHT' },
             ]}
-            itemsPerPage={15}
+            itemsPerPage={10}
+            rowClick={(object) => navigate(`/documents/${object.id}`)}
           />
         ) : null}
       </PageColumn>

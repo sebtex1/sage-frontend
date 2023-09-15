@@ -6,15 +6,15 @@ import Login from './pages/Login'
 import Settings from './pages/Settings'
 import GestionCommerciale from './pages/GestionCommerciale'
 import Documents from './pages/Documents'
-import DetailDocument from './pages/DetailDocument'
+import Document from './pages/Document'
 import Produits from './pages/Produits'
-import DetailProduit from './pages/DetailProduit'
-import DetailTiers from './pages/DetailTiers'
+import Produit from './pages/Produit'
+import Tier from './pages/Tier'
 import Variant from './pages/Variant'
 import Bundle from './pages/Bundle'
 import NotFound from './pages/NotFound'
-import Signin from "./components/Signin";
-import Signout from "./components/Signout";
+import Signin from './components/Signin'
+import Signout from './components/Signout'
 
 const router = createBrowserRouter([
   {
@@ -54,10 +54,10 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/documents/detail',
+    path: '/documents/:id',
     element: (
       <Default>
-        <DetailDocument />
+        <Document />
       </Default>
     ),
   },
@@ -71,23 +71,23 @@ const router = createBrowserRouter([
   },
 
   {
-    path: '/produits/detail',
+    path: '/produits/:id',
     element: (
       <Default>
-        <DetailProduit />
+        <Produit />
       </Default>
     ),
   },
   {
-    path: '/tiers/detail',
+    path: '/tiers/:id',
     element: (
       <Default>
-        <DetailTiers />
+        <Tier />
       </Default>
     ),
   },
   {
-    path: 'variant/:id',
+    path: '/variant/:id',
     element: (
       <Default>
         <Variant />
@@ -103,12 +103,12 @@ const router = createBrowserRouter([
     ),
   },
   {
-      path: "/signin-oidc",
-      element: <Signin />
+    path: '/signin-oidc',
+    element: <Signin />,
   },
   {
-      path: "/signout-oidc",
-      element: <Signout />
+    path: '/signout-oidc',
+    element: <Signout />,
   },
   {
     path: '*',

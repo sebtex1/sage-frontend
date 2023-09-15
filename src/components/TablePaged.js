@@ -54,9 +54,11 @@ const TablePaged = ({ data, headers, itemsPerPage, rowClick, actions }) => {
                   ? headers.map((header, indexHeader) => (
                       <TableCell
                         key={indexHeader}
-                        onClick={() => {
-                          executeRowClick(row)
-                        }}
+                        onClick={() =>
+                          header.value === 'actions'
+                            ? null
+                            : executeRowClick(row)
+                        }
                       >
                         {header.value === 'actions'
                           ? actions.map((action, indexAction) => (

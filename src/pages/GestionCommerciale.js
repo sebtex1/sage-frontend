@@ -8,19 +8,22 @@ const GestionCommerciale = () => {
         <Link to="/documents">Documents</Link>
       </button>
       <button>
-        <Link to="/documents/detail">Détail document</Link>
+        <Link to="/documents/1">Document</Link>
       </button>
       <button>
         <Link to="/produits">Produits</Link>
       </button>
       <button>
-        <Link to="/produits/detail">Détail produit</Link>
+        <Link to="/produits/1">Produit</Link>
       </button>
       <button>
-        <Link to="/tiers/detail">Détail tiers</Link>
+        <Link to="/tiers/1">Tiers</Link>
       </button>
       <button>
-        <Link to="/variant">Variant</Link>
+        <Link to="/variant/1">Variant</Link>
+      </button>
+      <button>
+        <Link to="/bundle/1">Bundle</Link>
       </button>
     </div>
   )
