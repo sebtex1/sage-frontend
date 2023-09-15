@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { useParams } from 'react-router-dom'
 import InputForm from '../components/InputForm'
 import PageColumn from '../components/PageColumn'
+import ButtonAction from '../components/ButtonAction'
 
 const Document = () => {
   const [document, setDocument] = React.useState({
@@ -18,6 +19,9 @@ const Document = () => {
   const [idDocument] = React.useState(useParams().id)
 
   React.useEffect(() => {
+    if (idDocument === 'new') {
+      return
+    }
     setDocument(
       Object.keys(documentsData)
         .map(
@@ -100,7 +104,7 @@ const Document = () => {
             type="text"
             id="tiers"
             name="tiers"
-            placeholder=""
+            placeholder="BIJOURSAL"
             value={document.tiers}
             onChange={(e) =>
               setDocument({ ...document, tiers: e.target.value })
@@ -111,7 +115,7 @@ const Document = () => {
             type="text"
             id="adresse_liv"
             name="adresse_liv"
-            placeholder=""
+            placeholder="1 rue de la paix"
             value={document.adresse_liv}
             onChange={(e) =>
               setDocument({ ...document, adresse_liv: e.target.value })
@@ -122,7 +126,7 @@ const Document = () => {
             type="text"
             id="contact"
             name="contact"
-            placeholder=""
+            placeholder="M.Bijou"
             value={document.contact}
             onChange={(e) =>
               setDocument({ ...document, contact: e.target.value })
@@ -135,7 +139,7 @@ const Document = () => {
             type="text"
             id="date"
             name="date"
-            placeholder=""
+            placeholder="01/01/2020"
             value={document.date}
             onChange={(e) => setDocument({ ...document, date: e.target.value })}
           />
@@ -144,7 +148,7 @@ const Document = () => {
             type="text"
             id="date_liv"
             name="date_liv"
-            placeholder=""
+            placeholder="02/01/2020"
             value={document.date_liv}
             onChange={(e) =>
               setDocument({ ...document, date_liv: e.target.value })
@@ -157,7 +161,7 @@ const Document = () => {
             type="text"
             id="reference"
             name="reference"
-            placeholder=""
+            placeholder="012345"
             value={document.reference}
             onChange={(e) =>
               setDocument({ ...document, reference: e.target.value })
@@ -168,7 +172,7 @@ const Document = () => {
             type="text"
             id="taxe"
             name="taxe"
-            placeholder=""
+            placeholder="0%"
             value={document.taxe}
             onChange={(e) => setDocument({ ...document, taxe: e.target.value })}
           />
@@ -177,7 +181,7 @@ const Document = () => {
             type="text"
             id="depot"
             name="depot"
-            placeholder=""
+            placeholder="Dépôt Paris"
             value={document.depot}
             onChange={(e) =>
               setDocument({ ...document, depot: e.target.value })
@@ -186,7 +190,21 @@ const Document = () => {
         </PageColumn>
       </Div>
       <Div>
-        <h1>Test</h1>
+        {idDocument === 'new' ? (
+          <ButtonAction
+            text="Ajouter un produit"
+            onClick={() => {
+              console.log('Ajout de produit', document)
+            }}
+          />
+        ) : (
+          <ButtonAction
+            text="Modifier le produit"
+            onClick={() => {
+              console.log(`Modifie tel produit: ${document.id}`, document)
+            }}
+          />
+        )}
       </Div>
     </>
   )
