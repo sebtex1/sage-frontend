@@ -4,20 +4,24 @@ import ButtonForm from '../components/ButtonForm';
 import UserService from '../services/UserService';
 
 const Accounts = (props) => {
-    const [lastname, setLastname] = React.useState(props.userMe.lastName);
-    const [firstname, setFirstname] = React.useState(props.userMe.firstName);
-    const [phone, setPhone] = React.useState(props.userMe.phoneNumber);
+    const [lastname, setLastname] = React.useState(props.userMe?.lastName);
+    const [firstname, setFirstname] = React.useState(props.userMe?.firstName);
+    const [phone, setPhone] = React.useState(props.userMe?.phoneNumber);
+
+    React.useEffect(() => {
+
+    }, [props.userMe])
 
     const SaveUser = (event) => {
         event.preventDefault();
         const me = {
-            id: props.userMe.id,
-            companyId: props.userMe.companyId,
-            email: props.userMe.email,
+            id: props.userMe?.id,
+            companyId: props.userMe?.companyId,
+            email: props.userMe?.email,
             lastName: lastname,
             firstName: firstname,
             phoneNumber: phone,
-            role: props.userMe.role
+            role: props.userMe?.role
         }
         UserService
         .UpdateUser(me)
@@ -26,10 +30,12 @@ const Accounts = (props) => {
             if (result.status === 204)
             {
                 props.setUserMe(me)
+                alert('succes')
             }
         })
         .catch(error => {
             console.log('error-UpdateUser', error);
+            alert(error.response.data)
         })
     }
     

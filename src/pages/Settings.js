@@ -1,24 +1,22 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PageColumn from '../components/PageColumn';
-import Icon from '@mdi/react';
-import { mdiChevronLeft } from '@mdi/js';
-import { mdiChevronRight } from '@mdi/js';
-import axios from 'axios';
-import HttpRequest from '../functions/HttpRequest';
 import UserService from '../services/UserService';
 import { Link } from 'react-router-dom'
 import UserAccess from './UserAccess';
 import Accounts from './Accounts';
+import CompanySettings from './CompanySettings';
 
 const Setting = () => {
-    const [page, setPage] = useState('account');
-    const [userMe, setUserMe] = useState({});
-    const scope = localStorage.getItem('scope');
+    const [page, setPage] = useState('');
+    const [userMe, setUserMe] = useState(null);
+    const [scope, setScope] = useState(localStorage.getItem('scope'));
     useEffect(() => {  
-        console.log('GetUserMe');
-        UserService.GetUserMe(setUserMe);
-        }, [])
+        if(userMe === null){
+            UserService.GetUserMe(setUserMe);
+            setPage('company');
+        }
+        }, [userMe, scope])
     
 
     return (
@@ -26,15 +24,16 @@ const Setting = () => {
             <User>
                 <Img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" />
                 <UserName>
-                    <Name>{`${userMe.lastName} ${userMe.firstName}`}</Name>
-                    <Role>{userMe.role}</Role>
+                    <Name>{`${userMe?.lastName} ${userMe?.firstName}`}</Name>
+                    <Role>{userMe?.role}</Role>
                 </UserName>
             </User>
             <Div>
                 <PageColumn>
+                    <button onClick={() => setPage('company')}>Société</button>
                     <button onClick={() => setPage('account')}>Mon compte</button>
                     {
-                        scope.includes('super_admin')
+                        scope?.includes('admin')
                         ? <button onClick={() => setPage('user_access')}>Gestion des accèss</button>
                         : null
                     }
@@ -42,8 +41,9 @@ const Setting = () => {
                 </PageColumn>
                 <PageColumn flex={2}>
 
-                    { page === 'user_access' ? <UserAccess userMe={userMe}/> : null }
+                    { page === 'company' ? <CompanySettings /> : null }
                     { page === 'account' ? <Accounts userMe={userMe} setUserMe={setUserMe}/> : null }
+                    { page === 'user_access' ? <UserAccess userMe={userMe}/> : null }
 
 
                     {/* <RowPagination>

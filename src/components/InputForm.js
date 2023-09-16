@@ -1,10 +1,16 @@
 import styled from 'styled-components';
 
-const InputForm = ({ label, type, id, name, value, required = false, onChange, placeholder = null }) => {
+const InputForm = ({ label, type, id, name, value, required = false, onChange, placeholder = null, disabled = false }) => {
     return (
         <div>
             <Label htmlFor={id}>{label}</Label>
-            <Input type={type} id={id} name={name} value={value} onChange={onChange} required={required} placeholder={placeholder} />
+            {
+            disabled
+                ? <Input type={type} id={id} name={name} value={value} onChange={onChange} required={required} placeholder={placeholder} disabled/>
+                : <Input type={type} id={id} name={name} value={value} onChange={onChange} required={required} placeholder={placeholder} />
+            }
+            
+            
         </div>
     );
 }

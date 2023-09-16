@@ -6,11 +6,12 @@ import { mdiChevronRight } from '@mdi/js';
 import UserService from '../services/UserService';
 
 const UserAccess = (props) => {
-    console.log('userMe', props.userMe);
     const [users, setUsers] = useState([]);
+    const [test, setTest] = useState(false);
     useEffect(() => {  
+        console.log('users', users);
         UserService.GetUsersMe(setUsers);   
-    }, [])
+    }, [test])
 
     
     const [checkAllState, setCheckAllState] = useState(false)
@@ -40,8 +41,8 @@ const UserAccess = (props) => {
     return (
         <>
             <Div>
-                <Title>Gestion des accèss</Title>
-                <AddButton>Ajouter un utilisateur</AddButton>
+                <Title>Gestion des accès</Title>
+                <AddButton onClick={() => setTest(!test)}>Ajouter un utilisateur</AddButton>
             </Div>
             <CardManageAccess>
                 <FirstRow>
@@ -55,7 +56,7 @@ const UserAccess = (props) => {
                     <Search type="text" placeholder="Rechercher un utilisateur" />
                 </SearchRow>
                 { 
-                    users.filter(x => x.userName !== props.userMe.userName).map((user, index) => {
+                    users.filter(x => x.id !== props.userMe.id).map((user, index) => {
                         return (
                             <Div key={user.id}>
                                 <input type="checkbox" defaultChecked={user.checked} onClick={() => { checkOne(index) } } />

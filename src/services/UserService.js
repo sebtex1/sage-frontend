@@ -16,6 +16,7 @@ const UserService = {
         HttpRequest
         .Send('get', 'companies/me/users', null, null, true, true)
         .then(result => {   
+            console.info('result-GetUsersMe', result)
             setUsers(result.data)
         })
         .catch(error => {
