@@ -6,6 +6,7 @@ import LineChart from '../components/LineChart'
 import PageColumn from '../components/PageColumn'
 import TablePaged from '../components/TablePaged'
 import MenuDropDown from '../components/MenuDropDown'
+import ButtonAction from '../components/ButtonAction'
 
 const Documents = () => {
   const [search, setSearch] = React.useState('')
@@ -268,15 +269,23 @@ const Documents = () => {
         <MenuDropDown menu={menu} callback={setDocument} />
       </PageColumn>
       <PageColumn flex={2}>
-        <InputForm
-          label="Rechercher"
-          type="text"
-          id="search"
-          name="search"
-          placeholder="Rechercher un document (Référence)"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
+        <DivSearch>
+          <InputForm
+            label="Rechercher"
+            type="text"
+            id="search"
+            name="search"
+            placeholder="Rechercher un document (Référence)"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <ButtonAction
+            text="Ajouter un document"
+            onClick={() => {
+              navigate('/documents/new')
+            }}
+          />
+        </DivSearch>
         {filteredData ? (
           <TablePaged
             data={filteredData}
@@ -314,4 +323,9 @@ const Div = styled.div`
   flex-direction: row;
   justify-content: space-between;
   padding: 10px;
+`
+
+const DivSearch = styled.div`
+  display: flex;
+  flex-direction: row;
 `

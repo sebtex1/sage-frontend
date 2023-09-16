@@ -70,14 +70,6 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/produits/add',
-    element: (
-      <Default>
-        <Produit />
-      </Default>
-    ),
-  },
-  {
     path: '/produits/:id',
     element: (
       <Default>

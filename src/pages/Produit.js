@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import PageColumn from '../components/PageColumn'
 import InputForm from '../components/InputForm'
 import SwitchForm from '../components/SwitchForm'
@@ -13,9 +13,12 @@ import ModalAction from '../components/ModalAction'
 
 const Produit = () => {
   const [search, setSearch] = React.useState('')
-  const [produitName, setProduitName] = React.useState('T-shirt oversize')
+  const [produit, setProduit] = React.useState({
+    name: 'T-shirt oversize',
+    ref: 'TSHIRTOVER',
+    stock_tracking: true,
+  })
   const [produitVariant, setProduitVariant] = React.useState('Bleu')
-  const [produitTracker, setProduitTracker] = React.useState(true)
   const [modalVariant, setModalVariant] = React.useState(false)
   const [dataModalVariant, setDataModalVariant] = React.useState({
     name: '',
@@ -30,10 +33,11 @@ const Produit = () => {
   })
   const [modalVariantSuppr, setModalVariantSuppr] = React.useState(false)
   const [modalBundleSuppr, setModalBundleSuppr] = React.useState(false)
+  const [idProduit] = React.useState(useParams().id)
 
   React.useEffect(() => {
-    console.log({ produitName, produitVariant, produitTracker })
-  }, [produitName, produitVariant, produitTracker])
+    console.log(produit)
+  }, [produit])
 
   React.useEffect(() => {
     console.log(dataModalVariant)
@@ -116,17 +120,31 @@ const Produit = () => {
               id="name"
               name="name"
               placeholder="Nom du produit"
-              value={produitName}
-              onChange={(e) => setProduitName(e.target.value)}
+              value={produit.name}
+              onChange={(e) => setProduit({ ...produit, name: e.target.value })}
             />
-          </PageColumn>
-          <PageColumn>
             <SwitchForm
               label="Suivi en stock"
               id="stock_tracking"
               name="stock_tracking"
-              value={produitTracker}
-              onChange={() => setProduitTracker(!produitTracker)}
+              value={produit.stock_tracking}
+              onChange={() =>
+                setProduit({
+                  ...produit,
+                  stock_tracking: !produit.stock_tracking,
+                })
+              }
+            />
+          </PageColumn>
+          <PageColumn>
+            <InputForm
+              label="Référence"
+              type="text"
+              id="ref"
+              name="ref"
+              placeholder="Référence du produit"
+              value={produit.ref}
+              onChange={(e) => setProduit({ ...produit, ref: e.target.value })}
             />
           </PageColumn>
         </Div>
@@ -263,6 +281,24 @@ const Produit = () => {
             }}
           />
         ) : null}
+        <BottomDiv>
+          {idProduit === 'new' ? (
+            <ButtonAction
+              icon
+              text="Ajouter le produit"
+              onClick={() => {
+                console.log('Ajout du produit', document)
+              }}
+            />
+          ) : (
+            <ButtonAction
+              text="Modifier le produit"
+              onClick={() => {
+                console.log(`Modifie tel produit: ${idProduit}`, produit)
+              }}
+            />
+          )}
+        </BottomDiv>
       </PageColumn>
       <PageColumn />
     </Div>
@@ -281,6 +317,12 @@ const DivSpaceBetween = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+`
+
+const BottomDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 `
 
 const H1 = styled.h1`
