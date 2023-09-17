@@ -1,24 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 import PageColumn from '../components/PageColumn'
 import InputForm from '../components/InputForm'
 import TablePaged from '../components/TablePaged'
+import ProductService from '../services/productService'
 
 const Produits = () => {
   const [search, setSearch] = React.useState('')
   const [filteredData, setFilteredData] = React.useState([])
+  const [produitsData, setProduitsData] = useState([])
 
   React.useEffect(() => {
     setFilteredData(produitsData.filter((item) => item.name.includes(search)))
   }, [search])
 
+  React.useEffect(() => {
+    ProductService.getProducts(setProduitsData)
+  }, [])
+
+  React.useEffect(() => {
+    setFilteredData(produitsData)
+  }, [produitsData])
+
   const navigate = useNavigate()
-  const produitsData = [
-    { id: 1, name: 'Produit 1', type: 'Type 1', stock_tracking: true },
-    { id: 2, name: 'Produit 2', type: 'Type 2', stock_tracking: false },
-    { id: 3, name: 'Produit 3', type: 'Type 3', stock_tracking: true },
-  ]
+
   return (
     <Div>
       <PageColumn>
@@ -34,7 +40,10 @@ const Produits = () => {
         {filteredData ? (
           <TablePaged
             data={filteredData}
-            headers={[{ name: 'Nom', value: 'name' }]}
+            headers={[
+              { name: 'Nom', value: 'name' },
+              { name: 'Référence', value: 'reference' },
+            ]}
             itemsPerPage={15}
             rowClick={(object) => navigate(`/produits/${object.id}`)}
           />
