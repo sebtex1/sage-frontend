@@ -6,6 +6,7 @@ import PageColumn from '../components/PageColumn'
 import ButtonAction from '../components/ButtonAction'
 import TablePaged from '../components/TablePaged'
 import HintText from '../components/HintText'
+import ModalAction from '../components/ModalAction'
 
 const Document = () => {
   const [document, setDocument] = React.useState({
@@ -19,6 +20,13 @@ const Document = () => {
     depot: '',
   })
   const [idDocument] = React.useState(useParams().id)
+  const [produit, setProduit] = React.useState({})
+  const [modalProduitSuppr, setModalProduitSuppr] = React.useState(false)
+  const [modalProduit, setModalProduit] = React.useState(false)
+  const [dataModalProduit, setDataModalProduit] = React.useState({
+    name: '',
+    reference: '',
+  })
 
   React.useEffect(() => {
     setDocument(
@@ -219,10 +227,38 @@ const Document = () => {
             icon
             text="Ajouter un produit"
             onClick={() => {
-              console.log('Ajout du produit')
+              setModalProduit(true)
             }}
           />
         </Div>
+        {modalProduit ? (
+          <ModalAction
+            title="Ajout du produit"
+            model={[
+              { name: 'Nom', value: 'name' },
+              { name: 'Référence', value: 'reference' },
+            ]}
+            data={dataModalProduit}
+            button="Valider"
+            onChange={(e) =>
+              setDataModalProduit({
+                ...dataModalProduit,
+                [e.target.name]: e.target.value,
+              })
+            }
+            submit={async () => {
+              // ProductService.postBundle(
+              //   dataModalBundle,
+              //   bundlesData,
+              //   setBundlesData,
+              // )
+              setModalProduit(false)
+            }}
+            cancel={() => {
+              setModalProduit(false)
+            }}
+          />
+        ) : null}
         <TablePaged
           data={produitsData}
           headers={[
@@ -232,9 +268,36 @@ const Document = () => {
             { name: 'Prix HT', value: 'price_ht' },
             { name: 'Prix TTC', value: 'price' },
             { name: 'Remise', value: 'remise' },
+            { name: '', value: 'actions' },
           ]}
-          itemsPerPage={10}
+          itemsPerPage={5}
+          actions={[
+            {
+              callback: (object) => {
+                setProduit(object)
+                setModalProduitSuppr(true)
+              },
+            },
+          ]}
         />
+        {modalProduitSuppr ? (
+          <ModalAction
+            title="Suppression de produit"
+            text={`Êtes-vous sûr de vouloir supprimer le produit ${produit.name} référencé ${produit.reference} ?`}
+            button="Supprimer"
+            submit={() => {
+              // ProductService.deleteProduit(
+              //   produit.id,
+              //   produitsData,
+              //   setProduitsData,
+              // )
+              setModalProduitSuppr(false)
+            }}
+            cancel={() => {
+              setModalProduitSuppr(false)
+            }}
+          />
+        ) : null}
         <HintText
           text="Nb total produits : 2<br/>
           Total HT : 36,98 <br/>

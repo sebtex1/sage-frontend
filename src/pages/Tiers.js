@@ -1,11 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import PageColumn from '../components/PageColumn'
 import InputForm from '../components/InputForm'
 import ButtonAction from '../components/ButtonAction'
 import ModalAction from '../components/ModalAction'
 import TablePaged from '../components/TablePaged'
+import GroupButton from '../components/GroupButton'
 import TiersService from '../services/tiersService'
 
 const Tiers = () => {
@@ -19,9 +20,15 @@ const Tiers = () => {
   const [tiersData, setTiersData] = React.useState([])
   const [tiers, setTiers] = React.useState({})
   const [modalTiersSuppr, setModalTiersSuppr] = React.useState(false)
+  const [type, setType] = React.useState(null)
+  const [searchParams] = useSearchParams()
 
   React.useEffect(() => {
     TiersService.getTiers(setTiersData)
+    if (searchParams) {
+      setType(searchParams.get('type'))
+      console.log('type', type)
+    }
   }, [])
 
   React.useEffect(() => {
@@ -82,9 +89,21 @@ const Tiers = () => {
             }}
           />
         ) : null}
+        <GroupButton
+          buttons={[
+            { text: 'Client', onClick: () => setType('Client') },
+            { text: 'Fournisseur', onClick: () => setType('Fournisseur') },
+            { text: 'Tous', onClick: () => setType('Tous') },
+          ]}
+          defaultButton={type}
+        />
         {filteredData ? (
           <TablePaged
-            data={filteredData}
+            data={
+              type !== 'Tous'
+                ? filteredData.filter((item) => item.ta_type === type)
+                : filteredData
+            }
             headers={[
               { name: 'Numéro', value: 'ta_name' },
               { name: 'Type', value: 'ta_type' },

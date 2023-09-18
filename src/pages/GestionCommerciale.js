@@ -29,7 +29,7 @@ const GestionCommerciale = () => {
                 <Button onClick={() => navigate('/tiers?type=Fournisseur')}>
                   Fournisseurs
                 </Button>
-                <Button onClick={() => navigate('/tiers?type=Clients')}>
+                <Button onClick={() => navigate('/tiers?type=Client')}>
                   Clients
                 </Button>
               </RowButtons>
@@ -37,15 +37,13 @@ const GestionCommerciale = () => {
             <Rectangle>
               <H1>Produits</H1>
               <RowButtons>
-                <Button onClick={() => navigate('/produits?')}>Produits</Button>
-                <Button onClick={() => navigate('/produits?')}>Produits</Button>
+                <Button onClick={() => navigate('/produits')}>Produits</Button>
               </RowButtons>
             </Rectangle>
             <Rectangle>
               <H1>Bundles</H1>
               <RowButtons>
-                <Button onClick={() => navigate('/bundles?')}>Bundles</Button>
-                <Button onClick={() => navigate('/bundles?')}>Bundles</Button>
+                <Button onClick={() => navigate('/bundles')}>Bundles</Button>
               </RowButtons>
             </Rectangle>
           </PageColumn>
