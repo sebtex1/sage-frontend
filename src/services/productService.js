@@ -227,6 +227,46 @@ const ProductService = {
         console.log(error)
       })
   },
+
+  getBundle: (id, setBundle) => {
+    axios({
+      method: 'get',
+      baseURL: 'http://localhost:3030/api/v1',
+      url: `/bundles/${id}`,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        company_id: '2508',
+      },
+      params: {},
+    })
+      .then((response) => {
+        console.log('response', response)
+        setBundle(response.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  },
+
+  putBundle: (id, bundle) => {
+    axios({
+      method: 'put',
+      baseURL: 'http://localhost:3030/api/v1',
+      url: `/bundles/${id}`,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        company_id: '2508',
+      },
+      data: bundle,
+      params: {},
+    })
+      .then((response) => {
+        console.log('response', response)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  },
 }
 
 export default ProductService
