@@ -21,9 +21,6 @@ const Document = () => {
   const [idDocument] = React.useState(useParams().id)
 
   React.useEffect(() => {
-    if (idDocument === 'new') {
-      return
-    }
     setDocument(
       Object.keys(documentsData)
         .map(
@@ -222,7 +219,7 @@ const Document = () => {
             icon
             text="Ajouter un produit"
             onClick={() => {
-              console.log('Ajout du document', document)
+              console.log('Ajout du produit')
             }}
           />
         </Div>
@@ -246,21 +243,12 @@ const Document = () => {
           <strong>Total : 42,00</strong>"
         />
         <BottomDiv>
-          {idDocument === 'new' ? (
-            <ButtonAction
-              text="Ajouter le document"
-              onClick={() => {
-                console.log('Ajout du document', document)
-              }}
-            />
-          ) : (
-            <ButtonAction
-              text="Modifier le document"
-              onClick={() => {
-                console.log(`Modifie tel document: ${document.id}`, document)
-              }}
-            />
-          )}
+          <ButtonAction
+            text="Modifier le document"
+            onClick={() => {
+              console.log(`Modifie tel document: ${document.id}`, document)
+            }}
+          />
         </BottomDiv>
       </PageColumn>
       <PageColumn />

@@ -10,7 +10,7 @@ import ProductService from '../services/productService'
 
 const Bundles = () => {
   const [search, setSearch] = React.useState('')
-  // const [filteredData, setFilteredData] = React.useState([])
+  const [filteredData, setFilteredData] = React.useState([])
   const [bundle, setBundle] = React.useState({})
   const [modalBundle, setModalBundle] = React.useState(false)
   const [modalBundleSuppr, setModalBundleSuppr] = React.useState(false)
@@ -23,6 +23,18 @@ const Bundles = () => {
   React.useEffect(() => {
     ProductService.getBundles(setBundlesData)
   }, [])
+
+  React.useEffect(() => {
+    setFilteredData(
+      bundlesData.filter((item) =>
+        item.name.toLowerCase().includes(search.toLowerCase()),
+      ),
+    )
+  }, [search])
+
+  React.useEffect(() => {
+    setFilteredData(bundlesData)
+  }, [bundlesData])
 
   const navigate = useNavigate()
   return (
@@ -74,9 +86,9 @@ const Bundles = () => {
             }}
           />
         ) : null}
-        {bundlesData ? (
+        {filteredData ? (
           <TablePaged
-            data={bundlesData}
+            data={filteredData}
             headers={[
               { name: 'Nom', value: 'name' },
               { name: 'Référence', value: 'reference' },

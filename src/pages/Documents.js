@@ -271,23 +271,25 @@ const Documents = () => {
         <MenuDropDown menu={menu} callback={setDocument} />
       </PageColumn>
       <PageColumn flex={2}>
-        <DivSearch>
-          <InputForm
-            label="Rechercher"
-            type="text"
-            id="search"
-            name="search"
-            placeholder="Rechercher un document (Référence)"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
+        <InputForm
+          label="Rechercher"
+          type="text"
+          id="search"
+          name="search"
+          placeholder="Rechercher un document (Référence)"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <Div>
+          <H1>Produits</H1>
           <ButtonAction
+            icon
             text="Ajouter un document"
             onClick={() => {
-              navigate('/documents/new')
+              console.log('Ajout du document', document)
             }}
           />
-        </DivSearch>
+        </Div>
         {filteredData ? (
           <TablePaged
             data={filteredData}
@@ -327,7 +329,8 @@ const Div = styled.div`
   padding: 10px;
 `
 
-const DivSearch = styled.div`
-  display: flex;
-  flex-direction: row;
+const H1 = styled.h1`
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
 `
