@@ -10,6 +10,7 @@ import TiersService from '../services/tiersService'
 
 const Tiers = () => {
   const [search, setSearch] = React.useState('')
+  const [filteredData, setFilteredData] = React.useState([])
   const [modalTiers, setModalTiers] = React.useState(false)
   const [dataModalTiers, setDataModalTiers] = React.useState({
     ta_name: '',
@@ -22,6 +23,18 @@ const Tiers = () => {
   React.useEffect(() => {
     TiersService.getTiers(setTiersData)
   }, [])
+
+  React.useEffect(() => {
+    setFilteredData(
+      tiersData.filter((item) =>
+        item.ta_name.toLowerCase().includes(search.toLowerCase()),
+      ),
+    )
+  }, [search])
+
+  React.useEffect(() => {
+    setFilteredData(tiersData)
+  }, [tiersData])
 
   const navigate = useNavigate()
   return (
@@ -69,9 +82,9 @@ const Tiers = () => {
             }}
           />
         ) : null}
-        {tiersData ? (
+        {filteredData ? (
           <TablePaged
-            data={tiersData}
+            data={filteredData}
             headers={[
               { name: 'Numéro', value: 'ta_name' },
               { name: 'Type', value: 'ta_type' },

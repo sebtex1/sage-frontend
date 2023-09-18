@@ -8,7 +8,6 @@ import TablePaged from '../components/TablePaged'
 import HintText from '../components/HintText'
 
 const Document = () => {
-  const [search, setSearch] = React.useState('')
   const [document, setDocument] = React.useState({
     tiers: '',
     adresse_liv: '',
@@ -122,15 +121,6 @@ const Document = () => {
     <Div>
       <PageColumn />
       <PageColumn flex={3}>
-        <InputForm
-          label="Rechercher"
-          type="text"
-          id="search"
-          name="search"
-          placeholder="Rechercher un document (Référence)"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
         <H1>Infomations générales</H1>
         <Div>
           <PageColumn>

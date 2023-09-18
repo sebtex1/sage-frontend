@@ -13,7 +13,6 @@ import ModalAction from '../components/ModalAction'
 import ProductService from '../services/productService'
 
 const Produit = () => {
-  const [search, setSearch] = React.useState('')
   const [produit, setProduit] = React.useState({
     name: 'T-shirt oversize',
     reference: 'TSHIRTOVER',
@@ -122,15 +121,6 @@ const Produit = () => {
         />
       </PageColumn>
       <PageColumn flex={3}>
-        <InputForm
-          label="Rechercher"
-          type="text"
-          id="search"
-          name="search"
-          placeholder="Rechercher un produit (Nom)"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
         <h1>Infomations générales</h1>
         <Div>
           <PageColumn>

@@ -21,12 +21,16 @@ const Produits = () => {
   const [modalProduitSuppr, setModalProduitSuppr] = useState(false)
 
   React.useEffect(() => {
-    setFilteredData(produitsData.filter((item) => item.name.includes(search)))
-  }, [search])
-
-  React.useEffect(() => {
     ProductService.getProducts(setProduitsData)
   }, [])
+
+  React.useEffect(() => {
+    setFilteredData(
+      produitsData.filter((item) =>
+        item.name.toLowerCase().includes(search.toLowerCase()),
+      ),
+    )
+  }, [search])
 
   React.useEffect(() => {
     setFilteredData(produitsData)

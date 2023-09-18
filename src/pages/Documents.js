@@ -15,7 +15,9 @@ const Documents = () => {
 
   React.useEffect(() => {
     setFilteredData(
-      documentsData[document].filter((item) => item.ref.includes(search)),
+      documentsData[document].filter((item) =>
+        item.ref.toLowerCase().includes(search.toLowerCase()),
+      ),
     )
   }, [search])
 
