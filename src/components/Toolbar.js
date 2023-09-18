@@ -98,14 +98,6 @@ const Side = styled.div`
   display: flex;
 `
 
-// const BorderMenu = styled.div`
-//     border: 1px solid black;
-//     border-radius: 5px;
-//     padding: 0 10px 0 10px;
-//     margin: 0 20px 0 0;
-//     cursor: pointer;
-// `;
-
 const Img = styled.img`
   display: block;
   width: 50px;

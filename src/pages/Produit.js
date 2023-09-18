@@ -4,10 +4,10 @@ import { useNavigate, useParams } from 'react-router-dom'
 import PageColumn from '../components/PageColumn'
 import InputForm from '../components/InputForm'
 import ButtonAction from '../components/ButtonAction'
-import LineChart from '../components/LineChart'
+// import LineChart from '../components/LineChart'
 import TablePaged from '../components/TablePaged'
 import GroupButton from '../components/GroupButton'
-import HintText from '../components/HintText'
+// import HintText from '../components/HintText'
 import ModalAction from '../components/ModalAction'
 import ProductService from '../services/productService'
 
@@ -89,25 +89,25 @@ const Produit = () => {
   }, [produitBundleElement])
 
   const navigate = useNavigate()
-  const labels = ['21/08', '28/08', '04/09']
-  const datasetCommande = [
-    {
-      data: [10, 5, 12],
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgb(255, 99, 132)',
-    },
-  ]
-  const datasetRetours = [
-    {
-      data: [0, 5, 0],
-      borderColor: 'rgb(53, 162, 235)',
-      backgroundColor: 'rgba(53, 162, 235)',
-    },
-  ]
+  // const labels = ['21/08', '28/08', '04/09']
+  // const datasetCommande = [
+  //   {
+  //     data: [10, 5, 12],
+  //     borderColor: 'rgb(255, 99, 132)',
+  //     backgroundColor: 'rgb(255, 99, 132)',
+  //   },
+  // ]
+  // const datasetRetours = [
+  //   {
+  //     data: [0, 5, 0],
+  //     borderColor: 'rgb(53, 162, 235)',
+  //     backgroundColor: 'rgba(53, 162, 235)',
+  //   },
+  // ]
   return (
     <Div>
       <PageColumn>
-        <HintText text="Produit créé le 10/07/2023<br/>Denière modification 10/07/2023<br/>commandé 56 fois" />
+        {/* <HintText text="Produit créé le 10/07/2023<br/>Denière modification 10/07/2023<br/>commandé 56 fois" />
         <LineChart
           data={datasetCommande}
           labels={labels}
@@ -117,7 +117,7 @@ const Produit = () => {
           data={datasetRetours}
           labels={labels}
           title="Retours des 3 dernières semaines"
-        />
+        /> */}
       </PageColumn>
       <PageColumn flex={3}>
         <h1>Infomations générales</h1>

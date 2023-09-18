@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { useParams } from 'react-router-dom'
 import PageColumn from '../components/PageColumn'
 import InputForm from '../components/InputForm'
+import SelectForm from '../components/SelectForm'
 import ButtonAction from '../components/ButtonAction'
 import TiersService from '../services/tiersService'
 
@@ -111,7 +112,7 @@ const Tier = () => {
               />
             </PageColumn>
             <PageColumn>
-              <InputForm
+              {/* <InputForm
                 label="Type"
                 type="text"
                 id="type"
@@ -119,6 +120,14 @@ const Tier = () => {
                 placeholder=""
                 value={tier.ta_type}
                 onChange={(e) => setTier({ ...tier, ta_type: e.target.value })}
+              /> */}
+              <SelectForm
+                label="Type"
+                id="type"
+                name="type"
+                value={tier.ta_type}
+                onChange={(e) => setTier({ ...tier, ta_type: e.target.value })}
+                list={['Client', 'Fournisseur']}
               />
               <InputForm
                 label="Complément"
