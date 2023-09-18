@@ -27,35 +27,37 @@ const Bundle = () => {
     <Div>
       <PageColumn />
       <PageColumn flex={3}>
-        <h1>Bundle:</h1>
-        <InputForm
-          label="Nom"
-          type="text"
-          id="name"
-          name="name"
-          placeholder=""
-          value={bundle.name}
-          onChange={(e) => setBundle({ ...bundle, name: e.target.value })}
-        />
-        <InputForm
-          label="Prix de vente"
-          type="text"
-          id="price"
-          name="price"
-          placeholder=""
-          value={bundle.price}
-          onChange={(e) =>
-            setBundle({ ...bundle, price: parseFloat(e.target.value) })
-          }
-        />
-        <BottomDiv>
-          <ButtonAction
-            text="Modifier le bundle"
-            onClick={() => {
-              ProductService.putBundle(idBundle, bundle)
-            }}
+        <Card>
+          <h1>Bundle:</h1>
+          <InputForm
+            label="Nom"
+            type="text"
+            id="name"
+            name="name"
+            placeholder=""
+            value={bundle.name}
+            onChange={(e) => setBundle({ ...bundle, name: e.target.value })}
           />
-        </BottomDiv>
+          <InputForm
+            label="Prix de vente"
+            type="text"
+            id="price"
+            name="price"
+            placeholder=""
+            value={bundle.price}
+            onChange={(e) =>
+              setBundle({ ...bundle, price: parseFloat(e.target.value) })
+            }
+          />
+          <BottomDiv>
+            <ButtonAction
+              text="Modifier le bundle"
+              onClick={() => {
+                ProductService.putBundle(idBundle, bundle)
+              }}
+            />
+          </BottomDiv>
+        </Card>
       </PageColumn>
       <PageColumn />
     </Div>
@@ -74,4 +76,15 @@ const BottomDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+`
+
+const Card = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #ccc;
+  background-color: #eee;
 `

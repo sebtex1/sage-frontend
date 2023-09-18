@@ -11,7 +11,6 @@ const Variant = () => {
   const [variant, setVariant] = React.useState({
     name: '',
     reference: '',
-    stock_tracking: true,
     purchase_price: 0,
     selling_price: 0,
   })
@@ -28,86 +27,90 @@ const Variant = () => {
     <Div>
       <PageColumn />
       <PageColumn flex={3}>
-        <h1>Variant:</h1>
-        <Div>
-          <PageColumn>
-            <InputForm
-              label="Nom"
-              type="text"
-              id="nom"
-              name="nom"
-              placeholder=""
-              value={variant.name}
-              onChange={(e) => setVariant({ ...variant, name: e.target.value })}
+        <Card>
+          <h1>Variant:</h1>
+          <Div>
+            <PageColumn>
+              <InputForm
+                label="Nom"
+                type="text"
+                id="nom"
+                name="nom"
+                placeholder=""
+                value={variant.name}
+                onChange={(e) =>
+                  setVariant({ ...variant, name: e.target.value })
+                }
+              />
+              <InputForm
+                label="Prix"
+                type="number"
+                id="purchase_price"
+                name="purchase_price"
+                placeholder=""
+                value={variant.purchase_price}
+                onChange={(e) =>
+                  setVariant({
+                    ...variant,
+                    purchase_price: parseFloat(e.target.value),
+                  })
+                }
+              />
+              <SwitchForm
+                label="Suivi du stock"
+                id="stock_tracking"
+                name="stock_tracking"
+                value={variant.stock_tracking}
+                onChange={() =>
+                  setVariant({
+                    ...variant,
+                    stock_tracking: !variant.stock_tracking,
+                  })
+                }
+              />
+            </PageColumn>
+            <PageColumn>
+              <InputForm
+                label="Référence"
+                type="text"
+                id="reference"
+                name="reference"
+                placeholder=""
+                value={variant.reference}
+                onChange={(e) =>
+                  setVariant({ ...variant, reference: e.target.value })
+                }
+              />
+              <InputForm
+                label="Prix HT"
+                type="number"
+                id="selling_price"
+                name="selling_price"
+                placeholder=""
+                value={variant.selling_price}
+                onChange={(e) =>
+                  setVariant({
+                    ...variant,
+                    selling_price: parseFloat(e.target.value),
+                  })
+                }
+              />
+            </PageColumn>
+          </Div>
+          <BottomDiv>
+            <ButtonAction
+              text="Modifier le variant"
+              onClick={() => {
+                console.log(`Modifie tel variant: ${variant.id}`, variant)
+                ProductService.putVariant(
+                  variant.id,
+                  variant,
+                  navigate(`/produits/${variant.product_id}`),
+                )
+              }}
             />
-            <InputForm
-              label="Prix"
-              type="number"
-              id="purchase_price"
-              name="purchase_price"
-              placeholder=""
-              value={variant.purchase_price}
-              onChange={(e) =>
-                setVariant({
-                  ...variant,
-                  purchase_price: parseFloat(e.target.value),
-                })
-              }
-            />
-            <SwitchForm
-              label="Suivi du stock"
-              id="stock_tracking"
-              name="stock_tracking"
-              value={variant.stock_tracking}
-              onChange={() =>
-                setVariant({
-                  ...variant,
-                  stock_tracking: !variant.stock_tracking,
-                })
-              }
-            />
-          </PageColumn>
-          <PageColumn>
-            <InputForm
-              label="Référence"
-              type="text"
-              id="reference"
-              name="reference"
-              placeholder=""
-              value={variant.reference}
-              onChange={(e) =>
-                setVariant({ ...variant, reference: e.target.value })
-              }
-            />
-            <InputForm
-              label="Prix HT"
-              type="number"
-              id="selling_price"
-              name="selling_price"
-              placeholder=""
-              value={variant.selling_price}
-              onChange={(e) =>
-                setVariant({
-                  ...variant,
-                  selling_price: parseFloat(e.target.value),
-                })
-              }
-            />
-          </PageColumn>
-        </Div>
-        <BottomDiv>
-          <ButtonAction
-            text="Modifier le variant"
-            onClick={() => {
-              console.log(`Modifie tel variant: ${variant.id}`, variant)
-              ProductService.putVariant(
-                variant.id,
-                variant,
-                navigate(`/produits/${variant.product_id}`),
-              )
-            }}
-          />
-        </BottomDiv>
+          </BottomDiv>
+        </Card>
       </PageColumn>
       <PageColumn />
     </Div>
@@ -126,4 +129,15 @@ const BottomDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+`
+
+const Card = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #ccc;
+  background-color: #eee;
 `
