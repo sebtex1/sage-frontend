@@ -54,9 +54,11 @@ const TablePaged = ({ data, headers, itemsPerPage, rowClick, actions }) => {
                   ? headers.map((header, indexHeader) => (
                       <TableCell
                         key={indexHeader}
-                        onClick={() => {
-                          executeRowClick(row)
-                        }}
+                        onClick={() =>
+                          header.value === 'actions'
+                            ? null
+                            : executeRowClick(row)
+                        }
                       >
                         {header.value === 'actions'
                           ? actions.map((action, indexAction) => (
@@ -65,7 +67,7 @@ const TablePaged = ({ data, headers, itemsPerPage, rowClick, actions }) => {
                                 path={mdiDelete}
                                 size={1}
                                 color="black"
-                                onClick={action.callback}
+                                onClick={() => action.callback(row)}
                               />
                             ))
                           : row[header.value]}
