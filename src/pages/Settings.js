@@ -59,7 +59,7 @@ const Setting = () => {
         </>
     );
 }
-export default Setting;
+export default Setting
 
 
 const LinkContainer = styled.div`
@@ -77,46 +77,46 @@ const Div = styled.div`
 `;
 
 const User = styled.div`
-    display: flex;
-    flex-direction: row;
-    margin: 0 10px 0 10px;
-    width: 95%;
-    height: 50px;
-`;
+  display: flex;
+  flex-direction: row;
+  margin: 0 10px 0 10px;
+  width: 95%;
+  height: 50px;
+`
 
 const Img = styled.img`
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-`;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+`
 
 const UserName = styled.div`
-    display: flex;
-    flex-direction: column;
-    height: 10px;
-    margin: 0 0 0 10px;
-`;
+  display: flex;
+  flex-direction: column;
+  height: 10px;
+  margin: 0 0 0 10px;
+`
 
 const Name = styled.p`
-    margin: 0;
-    padding: 0;
-    color: blue;
-    font-weight: bold;
-`;
+  margin: 0;
+  padding: 0;
+  color: blue;
+  font-weight: bold;
+`
 
 const Role = styled.p`
-    margin: 0;
-    padding: 0;
-`;
+  margin: 0;
+  padding: 0;
+`
 
 const RowPagination = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    margin: 0;
-`;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+`
 
 const NumberPagination = styled.p`
     margin: 0 10px;

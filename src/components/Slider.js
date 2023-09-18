@@ -1,17 +1,19 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from 'react'
+import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import Icon from '@mdi/react';
-import { mdiChevronDoubleLeft } from '@mdi/js';
-import { mdiAlphaGBox } from '@mdi/js';
-import { mdiAlphaCBox } from '@mdi/js';
-import { mdiAlphaPBox } from '@mdi/js';
-import { mdiFileDocumentOutline  } from '@mdi/js';
-import { mdiAccountOutline } from '@mdi/js';
-import { mdiShoppingOutline } from '@mdi/js';
-import { mdiWarehouse } from '@mdi/js';
-import { mdiCogOutline } from '@mdi/js';
-import { mdiPower } from '@mdi/js';
+import Icon from '@mdi/react'
+import {
+  mdiChevronDoubleLeft,
+  mdiAlphaGBox,
+  mdiAlphaCBox,
+  mdiAlphaPBox,
+  mdiFileDocumentOutline,
+  mdiAccountOutline,
+  mdiShoppingOutline,
+  mdiWarehouse,
+  mdiCogOutline,
+  mdiPower,
+} from '@mdi/js'
 
 const Slider = ({ open, handleMenu, side = 'left' }) => {
     const [isConnected, setIsConnected] = React.useState('');
@@ -113,89 +115,92 @@ const Slider = ({ open, handleMenu, side = 'left' }) => {
 export default Slider;
 
 const SliderContainerLeft = styled.div`
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 0 10px;
-    top: 0;
-    left: ${props => props.$left ? props.$left : '0'};
-    width: 300px;
-    height: 100vh;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0px 0px 4px black;
-    transition: 0.5s;
-`;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 10px;
+  top: 0;
+  left: ${(props) => (props.$left ? props.$left : '0')};
+  width: 300px;
+  height: 100vh;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 0px 4px black;
+  transition: 0.5s;
+`
 
 const SliderContainerRight = styled.div`
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 10px;
-    top: 100px;
-    right: ${props => props.$right ? props.$right : '0'};
-    opacity: ${props => props.$right === '25px' ? '1' : '0'};
-    visibility: ${props => props.$right === '25px' ? 'visible' : 'hidden'};
-    width: 300px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0px 0px 4px black;
-    transition: 0.5s right, 0.5s opacity, 0.5s visibility;
-`;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+  top: 100px;
+  right: ${(props) => (props.$right ? props.$right : '0')};
+  opacity: ${(props) => (props.$right === '25px' ? '1' : '0')};
+  visibility: ${(props) => (props.$right === '25px' ? 'visible' : 'hidden')};
+  width: 300px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0px 0px 4px black;
+  transition:
+    0.5s right,
+    0.5s opacity,
+    0.5s visibility;
+`
 
 const TopSlider = styled.div`
-    display: flex;
-    flex-direction: column;
-`;
+  display: flex;
+  flex-direction: column;
+`
 
 const BorderBottom = styled.div`
-    border-bottom: 1px solid #ccc;
-`;
+  border-bottom: 1px solid #ccc;
+`
 
 const HeaderSlider = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 10px;
-    /* border-bottom: 1px solid #ccc; */
-`;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 10px;
+  /* border-bottom: 1px solid #ccc; */
+`
 
 const Img = styled.img`
-    display: block;
-    width: 50px;
-    height: 25px;
-    margin: auto 10px;
-`;
+  display: block;
+  width: 50px;
+  height: 25px;
+  margin: auto 10px;
+`
 
 const LinksSlider = styled.div`
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    /* border-bottom: 1px solid #ccc; */
-`;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  /* border-bottom: 1px solid #ccc; */
+`
 
 const LinkContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    cursor: pointer;
-`;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+`
 
 const LinkStyled = styled(Link)`
-    margin-left: 10px;
-    text-decoration: none;
-    color: black;
-`;
+  margin-left: 10px;
+  text-decoration: none;
+  color: black;
+`
 
 const P = styled.p`
-    margin-left: 10px;
-`;
+  margin-left: 10px;
+`
 
 const BottomSlider = styled.div`
-    display: flex;
-    flex-direction: column;
-    border-top: 1px solid #000;
-`;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #000;
+`
