@@ -1,47 +1,29 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import PageColumn from '../components/PageColumn'
 import InputForm from '../components/InputForm'
+import SwitchForm from '../components/SwitchForm'
 import ButtonAction from '../components/ButtonAction'
+import ProductService from '../services/productService'
 
 const Variant = () => {
   const [variant, setVariant] = React.useState({
     name: '',
-    ref: '',
-    stock: '',
-    price: '',
-    price_ht: '',
+    reference: '',
+    stock_tracking: true,
+    purchase_price: 0,
+    selling_price: 0,
   })
   const [idVariant] = React.useState(useParams().id)
 
   React.useEffect(() => {
-    if (idVariant === 'new') {
-      return
+    if (idVariant) {
+      ProductService.getVariant(idVariant, setVariant)
     }
-    setVariant(
-      variantsData.filter((item) => item.id === parseInt(idVariant, 10))[0],
-    )
   }, [])
 
-  const variantsData = [
-    {
-      id: 1,
-      name: 'Bleu',
-      ref: 'TSHIRTOVERB',
-      stock: 23,
-      price: 11.99,
-      price_ht: 18.99,
-    },
-    {
-      id: 2,
-      name: 'Jaune',
-      ref: 'TSHIRTOVERJ',
-      stock: 9,
-      price: 10.59,
-      price_ht: 17.99,
-    },
-  ]
+  const navigate = useNavigate()
   return (
     <Div>
       <PageColumn />
@@ -60,24 +42,28 @@ const Variant = () => {
             />
             <InputForm
               label="Prix"
-              type="text"
-              id="prix"
-              name="prix"
+              type="number"
+              id="purchase_price"
+              name="purchase_price"
               placeholder=""
-              value={variant.price}
+              value={variant.purchase_price}
               onChange={(e) =>
-                setVariant({ ...variant, price: e.target.value })
+                setVariant({
+                  ...variant,
+                  purchase_price: parseFloat(e.target.value),
+                })
               }
             />
-            <InputForm
-              label="Stock"
-              type="text"
-              id="stock"
-              name="stock"
-              placeholder=""
-              value={variant.stock}
-              onChange={(e) =>
-                setVariant({ ...variant, stock: e.target.value })
+            <SwitchForm
+              label="Suivi du stock"
+              id="stock_tracking"
+              name="stock_tracking"
+              value={variant.stock_tracking}
+              onChange={() =>
+                setVariant({
+                  ...variant,
+                  stock_tracking: !variant.stock_tracking,
+                })
               }
             />
           </PageColumn>
@@ -88,39 +74,39 @@ const Variant = () => {
               id="reference"
               name="reference"
               placeholder=""
-              value={variant.ref}
-              onChange={(e) => setVariant({ ...variant, ref: e.target.value })}
+              value={variant.reference}
+              onChange={(e) =>
+                setVariant({ ...variant, reference: e.target.value })
+              }
             />
             <InputForm
               label="Prix HT"
-              type="text"
-              id="prix_ht"
-              name="prix_ht"
+              type="number"
+              id="selling_price"
+              name="selling_price"
               placeholder=""
-              value={variant.price_ht}
+              value={variant.selling_price}
               onChange={(e) =>
-                setVariant({ ...variant, price_ht: e.target.value })
+                setVariant({
+                  ...variant,
+                  selling_price: parseFloat(e.target.value),
+                })
               }
             />
           </PageColumn>
         </Div>
         <BottomDiv>
-          {idVariant === 'new' ? (
-            <ButtonAction
-              icon
-              text="Ajouter le variant"
-              onClick={() => {
-                console.log('Ajout du variant', variant)
-              }}
-            />
-          ) : (
-            <ButtonAction
-              text="Modifier le variant"
-              onClick={() => {
-                console.log(`Modifie tel variant: ${variant.id}`, variant)
-              }}
-            />
-          )}
+          <ButtonAction
+            text="Modifier le variant"
+            onClick={() => {
+              console.log(`Modifie tel variant: ${variant.id}`, variant)
+              ProductService.putVariant(
+                variant.id,
+                variant,
+                navigate(`/produits/${variant.product_id}`),
+              )
+            }}
+          />
         </BottomDiv>
       </PageColumn>
       <PageColumn />

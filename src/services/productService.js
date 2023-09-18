@@ -187,7 +187,7 @@ const ProductService = {
       })
   },
 
-  putVariant: (id, variant) => {
+  putVariant: (id, variant, redirect) => {
     axios({
       method: 'put',
       baseURL: 'http://localhost:3030/api/v1',
@@ -201,6 +201,27 @@ const ProductService = {
     })
       .then((response) => {
         console.log('response', response)
+        redirect()
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  },
+
+  getVariant: (id, setVariant) => {
+    axios({
+      method: 'get',
+      baseURL: 'http://localhost:3030/api/v1',
+      url: `variants/${id}`,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        company_id: '2508',
+      },
+      params: {},
+    })
+      .then((response) => {
+        console.log('response', response)
+        setVariant(response.data)
       })
       .catch((error) => {
         console.log(error)
