@@ -11,6 +11,7 @@ import Produits from './pages/Produits'
 import Produit from './pages/Produit'
 import Tier from './pages/Tier'
 import Variant from './pages/Variant'
+import Bundles from './pages/Bundles'
 import Bundle from './pages/Bundle'
 import NotFound from './pages/NotFound'
 import Signin from './components/Signin'
@@ -94,7 +95,15 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: 'bundle/:id',
+    path: '/bundles',
+    element: (
+      <Default>
+        <Bundles />
+      </Default>
+    ),
+  },
+  {
+    path: '/bundles/:id',
     element: (
       <Default>
         <Bundle />

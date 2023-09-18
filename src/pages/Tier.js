@@ -164,9 +164,9 @@ const Tier = () => {
         </Div>
         <BottomDiv>
           <ButtonAction
-            text="Modifier le variant"
+            text="Modifier le tiers"
             onClick={() => {
-              console.log(`Modifie tel tier: ${tier.ta_id}`, tier)
+              console.log(`Modifie tel tiers: ${tier.ta_id}`, tier)
               TiersService.putTier(tier.ta_id, tier)
             }}
           />

@@ -328,7 +328,7 @@ const Produit = () => {
               { name: '', value: 'actions' },
             ]}
             itemsPerPage={5}
-            rowClick={(object) => navigate(`/bundle/${object.id}`)}
+            rowClick={(object) => navigate(`/bundles/${object.id}`)}
             actions={[
               {
                 callback: (object) => {
