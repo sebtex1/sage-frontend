@@ -308,6 +308,26 @@ const ProductService = {
         console.log(error)
       })
   },
+
+  putProduit: (id, produit) => {
+    axios({
+      method: 'put',
+      baseURL: 'http://localhost:3030/api/v1',
+      url: `products/${id}`,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        company_id: '2508',
+      },
+      data: produit,
+      params: {},
+    })
+      .then((response) => {
+        console.log('response', response)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  },
 }
 
 export default ProductService

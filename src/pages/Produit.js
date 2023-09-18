@@ -359,22 +359,13 @@ const Produit = () => {
           />
         ) : null}
         <BottomDiv>
-          {idProduit === 'new' ? (
-            <ButtonAction
-              icon
-              text="Ajouter le produit"
-              onClick={() => {
-                console.log('Ajout du produit', document)
-              }}
-            />
-          ) : (
-            <ButtonAction
-              text="Modifier le produit"
-              onClick={() => {
-                console.log(`Modifie tel produit: ${idProduit}`, produit)
-              }}
-            />
-          )}
+          <ButtonAction
+            text="Modifier le produit"
+            onClick={() => {
+              console.log(`Modifie tel produit: ${idProduit}`, produit)
+              ProductService.putProduit(idProduit, produit)
+            }}
+          />
         </BottomDiv>
       </PageColumn>
       <PageColumn />
