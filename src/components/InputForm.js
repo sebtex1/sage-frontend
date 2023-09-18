@@ -9,13 +9,13 @@ const InputForm = ({
   required = false,
   onChange,
   placeholder = null,
-  disabled = false
+  disabled = false,
 }) => {
   return (
     <div>
       <Label htmlFor={id}>{label}</Label>
-      {disabled 
-      ? <Input
+      {disabled ? (
+        <Input
           type={type}
           id={id}
           name={name}
@@ -25,7 +25,8 @@ const InputForm = ({
           placeholder={placeholder}
           disabled
         />
-      :<Input
+      ) : (
+        <Input
           type={type}
           id={id}
           name={name}
@@ -33,8 +34,8 @@ const InputForm = ({
           onChange={onChange}
           required={required}
           placeholder={placeholder}
-        />}
-      
+        />
+      )}
     </div>
   )
 }
