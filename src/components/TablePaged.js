@@ -67,7 +67,7 @@ const TablePaged = ({ data, headers, itemsPerPage, rowClick, actions }) => {
                                 path={mdiDelete}
                                 size={1}
                                 color="black"
-                                onClick={action.callback}
+                                onClick={() => action.callback(row)}
                               />
                             ))
                           : row[header.value]}

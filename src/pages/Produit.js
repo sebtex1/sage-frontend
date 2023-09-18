@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useNavigate, useParams } from 'react-router-dom'
 import PageColumn from '../components/PageColumn'
@@ -10,42 +10,85 @@ import TablePaged from '../components/TablePaged'
 import GroupButton from '../components/GroupButton'
 import HintText from '../components/HintText'
 import ModalAction from '../components/ModalAction'
+import ProductService from '../services/productService'
 
 const Produit = () => {
   const [search, setSearch] = React.useState('')
   const [produit, setProduit] = React.useState({
     name: 'T-shirt oversize',
-    ref: 'TSHIRTOVER',
+    reference: 'TSHIRTOVER',
     stock_tracking: true,
   })
-  const [produitVariant, setProduitVariant] = React.useState('Bleu')
+  const [variantsData, setVariantsData] = useState([])
+  const [produitVariant, setProduitVariant] = React.useState({})
   const [modalVariant, setModalVariant] = React.useState(false)
   const [dataModalVariant, setDataModalVariant] = React.useState({
     name: '',
-    ref: '',
-    stock: '',
-    price: '',
-    price_ht: '',
+    reference: '',
+    stock_tracking: true,
+    purchase_price: 0,
+    selling_price: 0,
   })
+  const [listBundle, setListBundle] = React.useState([])
+  const [bundlesData, setBundlesData] = React.useState([])
+  const [produitBundle, setProduitBundle] = React.useState({})
   const [modalBundle, setModalBundle] = React.useState(false)
   const [dataModalBundle, setDataModalBundle] = React.useState({
     bundleToAdd: '',
+    quantity: 0,
   })
+  const [produitBundleElement, setProduitBundleElement] = React.useState({})
   const [modalVariantSuppr, setModalVariantSuppr] = React.useState(false)
   const [modalBundleSuppr, setModalBundleSuppr] = React.useState(false)
   const [idProduit] = React.useState(useParams().id)
 
   React.useEffect(() => {
-    console.log(produit)
-  }, [produit])
+    console.log('product id', idProduit)
+    ProductService.getProduct(idProduit, setProduit, setVariantsData)
+    ProductService.getBundles(setListBundle)
+  }, [])
 
   React.useEffect(() => {
-    console.log(dataModalVariant)
-  }, [dataModalVariant])
+    if (variantsData?.length > 0) {
+      setProduitVariant(variantsData[0])
+    }
+  }, [variantsData])
 
   React.useEffect(() => {
-    console.log(dataModalBundle)
-  }, [dataModalBundle])
+    if (variantsData?.length > 0) {
+      ProductService.getBundlesByVariant(
+        variantsData.filter(
+          (variant) => variant.name === produitVariant.name,
+        )[0]?.id,
+        setBundlesData,
+      )
+    }
+  }, [produitVariant])
+
+  React.useEffect(() => {
+    if (listBundle?.length > 0) {
+      setDataModalBundle({
+        ...dataModalBundle,
+        bundleToAdd: listBundle[0].name,
+      })
+    }
+  }, [listBundle])
+
+  React.useEffect(() => {
+    if (produitBundle.id && produitVariant.id) {
+      console.log('produitBundle', produitBundle)
+      console.log('produitVariant', produitVariant)
+      ProductService.getBundleElement(
+        produitVariant.id,
+        produitBundle.id,
+        setProduitBundleElement,
+      )
+    }
+  }, [produitBundle])
+
+  React.useEffect(() => {
+    console.log('produitBundleElement', produitBundleElement)
+  }, [produitBundleElement])
 
   const navigate = useNavigate()
   const labels = ['21/08', '28/08', '04/09']
@@ -63,29 +106,6 @@ const Produit = () => {
       backgroundColor: 'rgba(53, 162, 235)',
     },
   ]
-  const variantsData = [
-    {
-      id: 1,
-      name: 'Bleu',
-      ref: 'TSHIRTOVERB',
-      stock: 23,
-      price: 11.99,
-      price_ht: 18.99,
-    },
-    {
-      id: 2,
-      name: 'Jaune',
-      ref: 'TSHIRTOVERJ',
-      stock: 9,
-      price: 10.59,
-      price_ht: 17.99,
-    },
-  ]
-  const bundlesData = [
-    { id: 1, name: 'Ensemble jaune', sell_price: 18.99 },
-    { id: 2, name: 'Ensemble t-shirt jaune + short noir', sell_price: 18.99 },
-  ]
-  const listBundle = ['Ensemble jaune', 'Ensemble t-shirt jaune + short noir']
   return (
     <Div>
       <PageColumn>
@@ -140,11 +160,13 @@ const Produit = () => {
             <InputForm
               label="Référence"
               type="text"
-              id="ref"
-              name="ref"
+              id="reference"
+              name="reference"
               placeholder="Référence du produit"
-              value={produit.ref}
-              onChange={(e) => setProduit({ ...produit, ref: e.target.value })}
+              value={produit.reference}
+              onChange={(e) =>
+                setProduit({ ...produit, reference: e.target.value })
+              }
             />
           </PageColumn>
         </Div>
@@ -161,20 +183,29 @@ const Produit = () => {
             title="Ajout de variant"
             model={[
               { name: 'Nom', value: 'name' },
-              { name: 'Référence', value: 'ref' },
-              { name: 'Stock', value: 'stock' },
-              { name: 'Prix TTC', value: 'price' },
-              { name: 'Prix HT', value: 'price_ht' },
+              { name: 'Référence', value: 'reference' },
+              { name: 'Prix achat', value: 'purchase_price', type: 'number' },
+              { name: 'Prix vente HT', value: 'selling_price', type: 'number' },
             ]}
             data={dataModalVariant}
             button="Valider"
             onChange={(e) =>
               setDataModalVariant({
                 ...dataModalVariant,
-                [e.target.name]: e.target.value,
+                [e.target.name]:
+                  e.target.name === 'purchase_price' ||
+                  e.target.name === 'selling_price'
+                    ? parseFloat(e.target.value)
+                    : e.target.value,
               })
             }
-            submit={() => {
+            submit={async () => {
+              ProductService.postVariant(
+                idProduit,
+                dataModalVariant,
+                variantsData,
+                setVariantsData,
+              )
               setModalVariant(false)
             }}
             cancel={() => {
@@ -188,22 +219,34 @@ const Produit = () => {
               data={variantsData}
               headers={[
                 { name: 'Nom', value: 'name' },
-                { name: 'Référence', value: 'ref' },
-                { name: 'Stock', value: 'stock' },
-                { name: 'Prix TTC', value: 'price' },
-                { name: 'Prix HT', value: 'price_ht' },
+                { name: 'Référence', value: 'reference' },
+                { name: 'Stock', value: 'stock_tracking' },
+                { name: 'Prix achat', value: 'purchase_price' },
+                { name: 'Prix vente HT', value: 'selling_price' },
                 { name: '', value: 'actions' },
               ]}
               itemsPerPage={5}
               rowClick={(object) => navigate(`/variant/${object.id}`)}
-              actions={[{ callback: () => setModalVariantSuppr(true) }]}
+              actions={[
+                {
+                  callback: (object) => {
+                    setProduitVariant(object)
+                    setModalVariantSuppr(true)
+                  },
+                },
+              ]}
             />
             {modalVariantSuppr ? (
               <ModalAction
                 title="Suppression de variant"
-                text={`Êtes-vous sûr de vouloir supprimer le variant ${produitVariant} ?`}
+                text={`Êtes-vous sûr de vouloir supprimer le variant ${produitVariant.name} référencé ${produitVariant.reference} ?`}
                 button="Supprimer"
                 submit={() => {
+                  ProductService.deleteVariant(
+                    produitVariant.id,
+                    variantsData,
+                    setVariantsData,
+                  )
                   setModalVariantSuppr(false)
                 }}
                 cancel={() => {
@@ -213,6 +256,8 @@ const Produit = () => {
             ) : null}
           </>
         ) : null}
+        <br />
+        <br />
         <DivSpaceBetween>
           <H1>Bundles</H1>
           <ButtonAction
@@ -229,8 +274,9 @@ const Produit = () => {
                 name: 'Bundle',
                 value: 'bundleToAdd',
                 type: 'select',
-                list: listBundle,
+                list: listBundle?.map((bundle) => bundle.name),
               },
+              { name: 'Quantité', value: 'quantity', type: 'number' },
             ]}
             data={dataModalBundle}
             button="Valider"
@@ -241,6 +287,24 @@ const Produit = () => {
               })
             }
             submit={() => {
+              ProductService.postBundleElement(
+                listBundle.filter(
+                  (bundle) => bundle.name === dataModalBundle.bundleToAdd,
+                )[0]?.id,
+                {
+                  bundle_id: listBundle.filter(
+                    (bundle) => bundle.name === dataModalBundle.bundleToAdd,
+                  )[0]?.id,
+                  variant_id: variantsData.filter(
+                    (variant) => variant.name === produitVariant.name,
+                  )[0]?.id,
+                  quantity: parseFloat(dataModalBundle.quantity),
+                },
+                listBundle,
+                bundlesData,
+                setBundlesData,
+              )
+              console.log('bundlesData', bundlesData)
               setModalBundle(false)
             }}
             cancel={() => {
@@ -248,32 +312,47 @@ const Produit = () => {
             }}
           />
         ) : null}
-        <GroupButton
-          buttons={variantsData.map((variant) => ({
-            text: variant.name,
-            onClick: () => setProduitVariant(variant.name),
-          }))}
-          defaultButton={produitVariant}
-        />
+        {variantsData ? (
+          <GroupButton
+            buttons={variantsData.map((variant) => ({
+              text: variant.name,
+              onClick: () => setProduitVariant(variant),
+            }))}
+            defaultButton={produitVariant.name}
+          />
+        ) : null}
         {bundlesData ? (
           <TablePaged
             data={bundlesData}
             headers={[
               { name: 'Nom', value: 'name' },
-              { name: 'Prix de vente', value: 'sell_price' },
+              { name: 'Prix vente HT', value: 'price' },
               { name: '', value: 'actions' },
             ]}
             itemsPerPage={5}
-            rowClick={(object) => navigate(`/bundle/${object.id}`)}
-            actions={[{ callback: () => setModalBundleSuppr(true) }]}
+            rowClick={(object) => navigate(`/bundles/${object.id}`)}
+            actions={[
+              {
+                callback: (object) => {
+                  setProduitBundle(object)
+                  setModalBundleSuppr(true)
+                },
+              },
+            ]}
           />
         ) : null}
         {modalBundleSuppr ? (
           <ModalAction
             title="Suppression de bundle"
-            text="Êtes-vous sûr de vouloir supprimer le bundle ?"
+            text={`Êtes-vous sûr de vouloir supprimer le produit ${produitVariant.name} du bundle ${produitBundle.name} ? ${produitBundleElement?.id}`}
             button="Supprimer"
             submit={() => {
+              console.log('suppression du bundle', produitBundle)
+              ProductService.deleteBundleElement(
+                produitBundleElement.id,
+                produitVariant.id,
+                setBundlesData,
+              )
               setModalBundleSuppr(false)
             }}
             cancel={() => {
@@ -282,22 +361,13 @@ const Produit = () => {
           />
         ) : null}
         <BottomDiv>
-          {idProduit === 'new' ? (
-            <ButtonAction
-              icon
-              text="Ajouter le produit"
-              onClick={() => {
-                console.log('Ajout du produit', document)
-              }}
-            />
-          ) : (
-            <ButtonAction
-              text="Modifier le produit"
-              onClick={() => {
-                console.log(`Modifie tel produit: ${idProduit}`, produit)
-              }}
-            />
-          )}
+          <ButtonAction
+            text="Modifier le produit"
+            onClick={() => {
+              console.log(`Modifie tel produit: ${idProduit}`, produit)
+              ProductService.putProduit(idProduit, produit)
+            }}
+          />
         </BottomDiv>
       </PageColumn>
       <PageColumn />

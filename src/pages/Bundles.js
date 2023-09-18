@@ -1,39 +1,30 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 import PageColumn from '../components/PageColumn'
 import InputForm from '../components/InputForm'
-import TablePaged from '../components/TablePaged'
 import ButtonAction from '../components/ButtonAction'
 import ModalAction from '../components/ModalAction'
+import TablePaged from '../components/TablePaged'
 import ProductService from '../services/productService'
 
-const Produits = () => {
+const Bundles = () => {
   const [search, setSearch] = React.useState('')
-  const [filteredData, setFilteredData] = React.useState([])
-  const [produitsData, setProduitsData] = useState([])
-  const [produit, setProduit] = useState({})
-  const [modalProduit, setModalProduit] = useState(false)
-  const [dataModalProduit, setDataModalProduit] = useState({
+  // const [filteredData, setFilteredData] = React.useState([])
+  const [bundle, setBundle] = React.useState({})
+  const [modalBundle, setModalBundle] = React.useState(false)
+  const [modalBundleSuppr, setModalBundleSuppr] = React.useState(false)
+  const [dataModalBundle, setDataModalBundle] = React.useState({
     name: '',
     reference: '',
   })
-  const [modalProduitSuppr, setModalProduitSuppr] = useState(false)
+  const [bundlesData, setBundlesData] = React.useState([])
 
   React.useEffect(() => {
-    setFilteredData(produitsData.filter((item) => item.name.includes(search)))
-  }, [search])
-
-  React.useEffect(() => {
-    ProductService.getProducts(setProduitsData)
+    ProductService.getBundles(setBundlesData)
   }, [])
 
-  React.useEffect(() => {
-    setFilteredData(produitsData)
-  }, [produitsData])
-
   const navigate = useNavigate()
-
   return (
     <Div>
       <PageColumn />
@@ -43,81 +34,81 @@ const Produits = () => {
           type="text"
           id="search"
           name="search"
-          placeholder="Rechercher un produit (Nom)"
+          placeholder="Rechercher un bundle (Nom)"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
         <DivSpaceBetween>
-          <h1>Produits:</h1>
+          <h1>Bundles:</h1>
           <ButtonAction
-            text="Ajouter un produit"
+            text="Ajouter un bundle"
             icon
-            onClick={() => setModalProduit(true)}
+            onClick={() => setModalBundle(true)}
           />
         </DivSpaceBetween>
-        {modalProduit ? (
+        {modalBundle ? (
           <ModalAction
-            title="Ajout du produit"
+            title="Ajout du bundle"
             model={[
               { name: 'Nom', value: 'name' },
               { name: 'Référence', value: 'reference' },
             ]}
-            data={dataModalProduit}
+            data={dataModalBundle}
             button="Valider"
             onChange={(e) =>
-              setDataModalProduit({
-                ...dataModalProduit,
+              setDataModalBundle({
+                ...dataModalBundle,
                 [e.target.name]: e.target.value,
               })
             }
             submit={async () => {
-              ProductService.postProduct(
-                dataModalProduit,
-                produitsData,
-                setProduitsData,
+              ProductService.postBundle(
+                dataModalBundle,
+                bundlesData,
+                setBundlesData,
               )
-              setModalProduit(false)
+              setModalBundle(false)
             }}
             cancel={() => {
-              setModalProduit(false)
+              setModalBundle(false)
             }}
           />
         ) : null}
-        {filteredData ? (
+        {bundlesData ? (
           <TablePaged
-            data={filteredData}
+            data={bundlesData}
             headers={[
               { name: 'Nom', value: 'name' },
               { name: 'Référence', value: 'reference' },
               { name: '', value: 'actions' },
             ]}
             itemsPerPage={15}
-            rowClick={(object) => navigate(`/produits/${object.id}`)}
+            rowClick={(object) => navigate(`/bundles/${object.id}`)}
             actions={[
               {
                 callback: (object) => {
-                  setProduit(object)
-                  setModalProduitSuppr(true)
+                  setBundle(object)
+                  setModalBundleSuppr(true)
                 },
               },
             ]}
           />
         ) : null}
-        {modalProduitSuppr ? (
+        {modalBundleSuppr ? (
           <ModalAction
-            title="Suppression de produit"
-            text={`Êtes-vous sûr de vouloir supprimer le produit ${produit.name} référencé ${produit.reference} ?`}
+            title="Suppression de bundle"
+            text={`Êtes-vous sûr de vouloir supprimer le bundle ${bundle.name} référencé ${bundle.reference} ?`}
             button="Supprimer"
             submit={() => {
-              ProductService.deleteProduit(
-                produit.id,
-                produitsData,
-                setProduitsData,
+              ProductService.deleteBundle(
+                bundle.id,
+                bundlesData,
+                setBundlesData,
               )
-              setModalProduitSuppr(false)
+              setModalBundleSuppr(false)
             }}
             cancel={() => {
-              setModalProduitSuppr(false)
+              setModalBundleSuppr(false)
             }}
           />
         ) : null}
@@ -126,13 +117,12 @@ const Produits = () => {
     </Div>
   )
 }
-export default Produits
+export default Bundles
 
 const Div = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 10px;
 `
 
 const DivSpaceBetween = styled.div`
