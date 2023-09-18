@@ -9,6 +9,13 @@ import Slider from './Slider'
 const Toolbar = () => {
   const [openMenu, setOpenMenu] = React.useState(false)
   const [openAccount, setOpenAccount] = React.useState(false)
+  const [isConnected, setIsConnected] = React.useState('')
+
+  React.useEffect(() => {
+    if (isConnected === '') {
+      setIsConnected(localStorage.getItem('id_token'))
+    }
+  }, [isConnected])
 
   React.useEffect(() => {
     if (openMenu) setOpenAccount(false)
@@ -60,10 +67,12 @@ const Toolbar = () => {
           <p>Gestion commerciale &gt; Produits</p>
         </Side>
         <Side>
-          <CreateDocument>
-            <Icon path={mdiFilePlusOutline} size={1} color="black" />
-            <P>Ajouter un document</P>
-          </CreateDocument>
+          {isConnected !== null ? (
+            <CreateDocument>
+              <Icon path={mdiFilePlusOutline} size={1} color="black" />
+              <P>Ajouter un document</P>
+            </CreateDocument>
+          ) : null}
           <ImgAccount
             src="https://www.w3schools.com/howto/img_avatar.png"
             alt="Avatar"
