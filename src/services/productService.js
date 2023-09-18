@@ -267,6 +267,47 @@ const ProductService = {
         console.log(error)
       })
   },
+
+  postProduct: (product, products, setProducts) => {
+    axios({
+      method: 'post',
+      baseURL: 'http://localhost:3030/api/v1',
+      url: `/products`,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        company_id: '2508',
+      },
+      data: product,
+      params: {},
+    })
+      .then((response) => {
+        console.log('response', response)
+        setProducts([...products, response.data])
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  },
+
+  deleteProduit: (id, produits, setProduits) => {
+    axios({
+      method: 'delete',
+      baseURL: 'http://localhost:3030/api/v1',
+      url: `products/${id}`,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        company_id: '2508',
+      },
+      params: {},
+    })
+      .then((response) => {
+        console.log('response', response)
+        setProduits(produits.filter((produit) => produit.id !== id))
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  },
 }
 
 export default ProductService

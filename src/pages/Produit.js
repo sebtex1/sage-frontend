@@ -49,13 +49,13 @@ const Produit = () => {
   }, [])
 
   React.useEffect(() => {
-    if (variantsData.length > 0) {
+    if (variantsData?.length > 0) {
       setProduitVariant(variantsData[0])
     }
   }, [variantsData])
 
   React.useEffect(() => {
-    if (variantsData.length > 0) {
+    if (variantsData?.length > 0) {
       ProductService.getBundlesByVariant(
         variantsData.filter(
           (variant) => variant.name === produitVariant.name,
@@ -66,7 +66,7 @@ const Produit = () => {
   }, [produitVariant])
 
   React.useEffect(() => {
-    if (listBundle.length > 0) {
+    if (listBundle?.length > 0) {
       setDataModalBundle({
         ...dataModalBundle,
         bundleToAdd: listBundle[0].name,
@@ -184,7 +184,6 @@ const Produit = () => {
             model={[
               { name: 'Nom', value: 'name' },
               { name: 'Référence', value: 'reference' },
-              // { name: 'Stock', value: 'stock_tracking' },
               { name: 'Prix achat', value: 'purchase_price', type: 'number' },
               { name: 'Prix vente HT', value: 'selling_price', type: 'number' },
             ]}
@@ -273,7 +272,7 @@ const Produit = () => {
                 name: 'Bundle',
                 value: 'bundleToAdd',
                 type: 'select',
-                list: listBundle.map((bundle) => bundle.name),
+                list: listBundle?.map((bundle) => bundle.name),
               },
               { name: 'Quantité', value: 'quantity', type: 'number' },
             ]}
@@ -311,13 +310,15 @@ const Produit = () => {
             }}
           />
         ) : null}
-        <GroupButton
-          buttons={variantsData.map((variant) => ({
-            text: variant.name,
-            onClick: () => setProduitVariant(variant),
-          }))}
-          defaultButton={produitVariant.name}
-        />
+        {variantsData ? (
+          <GroupButton
+            buttons={variantsData.map((variant) => ({
+              text: variant.name,
+              onClick: () => setProduitVariant(variant),
+            }))}
+            defaultButton={produitVariant.name}
+          />
+        ) : null}
         {bundlesData ? (
           <TablePaged
             data={bundlesData}
