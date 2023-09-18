@@ -84,7 +84,7 @@ const Slider = ({ open, handleMenu, side = 'left' }) => {
                                         <Icon path={mdiCogOutline} size={1} color="black" />
                                         <LinkStyled to="/settings">Settings</LinkStyled>
                                     </LinkContainer>
-                                <LinkStyled to={`https://localhost:7000/connect/endsession?id_token_hint=${isConnected}&post_logout_redirect_uri=http://localhost:3000/signout-oidc`}>
+                                <LinkStyled to={`https://localhost:7001/connect/endsession?id_token_hint=${isConnected}&post_logout_redirect_uri=http://localhost:3000/signout-oidc`}>
                                     <LinkContainer onClick={() => { handleMenu() }}>
                                         <Icon path={mdiPower} size={1} color="black" />
                                         <P>Déconnexion</P>
@@ -95,7 +95,7 @@ const Slider = ({ open, handleMenu, side = 'left' }) => {
                         : 
                         <TopSlider>
                             <LinksSlider>
-                                <LinkStyled to="https://localhost:7000/connect/authorize?client_id=WebApplication&scope=openid super_admin admin user offline_access&response_type=code&redirect_uri=http://localhost:3000/signin-oidc&prompt=login">
+                                <LinkStyled to="https://localhost:7001/connect/authorize?client_id=WebApplication&scope=openid super_admin admin user offline_access&response_type=code&redirect_uri=http://localhost:3000/signin-oidc&prompt=login">
                                     <LinkContainer onClick={() => { handleMenu() }}>
                                         <Icon path={mdiPower} size={1} color="black" />
                                         <P>Connexion</P>

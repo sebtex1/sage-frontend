@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const baseRequest = axios.create({
-    baseURL: 'https://localhost:7000/api/v1/', 
+    baseURL: 'https://localhost:7001/api/v1/', 
 });
 
 const HttpRequest = {

@@ -17,7 +17,7 @@ const Signin = () => {
         if (code !== null){
             axios({
                 method: 'get',
-                baseURL: 'https://localhost:7000/api/v1',
+                baseURL: 'https://localhost:7001/api/v1',
                 url: '/auth/token',
                 headers:{
                     'Access-Control-Allow-Origin': '*'
