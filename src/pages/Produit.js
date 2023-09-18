@@ -19,14 +19,17 @@ const Produit = () => {
     reference: 'TSHIRTOVER',
     stock_tracking: true,
   })
-  const [produitVariant, setProduitVariant] = React.useState('Bleu')
+  const [variantsData, setVariantsData] = useState([])
+  const [produitVariant, setProduitVariant] = React.useState({})
+  const [bundlesData, setBundlesData] = React.useState([])
+  const [listBundle, setListBundle] = React.useState([])
   const [modalVariant, setModalVariant] = React.useState(false)
   const [dataModalVariant, setDataModalVariant] = React.useState({
     name: '',
     reference: '',
-    stock: '',
-    price: '',
-    selling_price: '',
+    stock_tracking: true,
+    purchase_price: 0,
+    selling_price: 0,
   })
   const [modalBundle, setModalBundle] = React.useState(false)
   const [dataModalBundle, setDataModalBundle] = React.useState({
@@ -39,7 +42,25 @@ const Produit = () => {
   React.useEffect(() => {
     console.log('product id', idProduit)
     ProductService.getProduct(idProduit, setProduit, setVariantsData)
+    ProductService.getBundles(setListBundle)
   }, [])
+
+  React.useEffect(() => {
+    if (variantsData.length > 0) {
+      setProduitVariant(variantsData[0])
+    }
+  }, [variantsData])
+
+  React.useEffect(() => {
+    if (variantsData !== '') {
+      ProductService.getBundlesByVariant(
+        variantsData.filter(
+          (variant) => variant.name === produitVariant.name,
+        )[0]?.id,
+        setBundlesData,
+      )
+    }
+  }, [produitVariant])
 
   const navigate = useNavigate()
   const labels = ['21/08', '28/08', '04/09']
@@ -57,30 +78,7 @@ const Produit = () => {
       backgroundColor: 'rgba(53, 162, 235)',
     },
   ]
-  const [variantsData, setVariantsData] = useState([])
-  // const variantsData = [
-  //   {
-  //     id: 1,
-  //     name: 'Bleu',
-  //     reference: 'TSHIRTOVERB',
-  //     stock: 23,
-  //     price: 11.99,
-  //     selling_price: 18.99,
-  //   },
-  //   {
-  //     id: 2,
-  //     name: 'Jaune',
-  //     reference: 'TSHIRTOVERJ',
-  //     stock: 9,
-  //     price: 10.59,
-  //     selling_price: 17.99,
-  //   },
-  // ]
-  const bundlesData = [
-    { id: 1, name: 'Ensemble jaune', sell_price: 18.99 },
-    { id: 2, name: 'Ensemble t-shirt jaune + short noir', sell_price: 18.99 },
-  ]
-  const listBundle = ['Ensemble jaune', 'Ensemble t-shirt jaune + short noir']
+  // const listBundle = ['Ensemble jaune', 'Ensemble t-shirt jaune + short noir']
   return (
     <Div>
       <PageColumn>
@@ -159,19 +157,29 @@ const Produit = () => {
             model={[
               { name: 'Nom', value: 'name' },
               { name: 'Référence', value: 'reference' },
-              { name: 'Stock', value: 'stock' },
-              { name: 'Prix achat', value: 'purchase_price' },
-              { name: 'Prix vente HT', value: 'selling_price' },
+              // { name: 'Stock', value: 'stock_tracking' },
+              { name: 'Prix achat', value: 'purchase_price', type: 'number' },
+              { name: 'Prix vente HT', value: 'selling_price', type: 'number' },
             ]}
             data={dataModalVariant}
             button="Valider"
             onChange={(e) =>
               setDataModalVariant({
                 ...dataModalVariant,
-                [e.target.name]: e.target.value,
+                [e.target.name]:
+                  e.target.name === 'purchase_price' ||
+                  e.target.name === 'selling_price'
+                    ? parseFloat(e.target.value)
+                    : e.target.value,
               })
             }
-            submit={() => {
+            submit={async () => {
+              ProductService.postVariants(
+                idProduit,
+                dataModalVariant,
+                variantsData,
+                setVariantsData,
+              )
               setModalVariant(false)
             }}
             cancel={() => {
@@ -186,21 +194,33 @@ const Produit = () => {
               headers={[
                 { name: 'Nom', value: 'name' },
                 { name: 'Référence', value: 'reference' },
-                { name: 'Stock', value: 'stock' },
+                { name: 'Stock', value: 'stock_tracking' },
                 { name: 'Prix achat', value: 'purchase_price' },
                 { name: 'Prix vente HT', value: 'selling_price' },
                 { name: '', value: 'actions' },
               ]}
               itemsPerPage={5}
               rowClick={(object) => navigate(`/variant/${object.id}`)}
-              actions={[{ callback: () => setModalVariantSuppr(true) }]}
+              actions={[
+                {
+                  callback: (object) => {
+                    setProduitVariant(object)
+                    setModalVariantSuppr(true)
+                  },
+                },
+              ]}
             />
             {modalVariantSuppr ? (
               <ModalAction
                 title="Suppression de variant"
-                text={`Êtes-vous sûr de vouloir supprimer le variant ${produitVariant} ?`}
+                text={`Êtes-vous sûr de vouloir supprimer le variant ${produitVariant.name} référencé ${produitVariant.reference} ?`}
                 button="Supprimer"
                 submit={() => {
+                  ProductService.deleteVariant(
+                    produitVariant.id,
+                    variantsData,
+                    setVariantsData,
+                  )
                   setModalVariantSuppr(false)
                 }}
                 cancel={() => {
@@ -226,7 +246,7 @@ const Produit = () => {
                 name: 'Bundle',
                 value: 'bundleToAdd',
                 type: 'select',
-                list: listBundle,
+                list: listBundle.map((bundle) => bundle.name),
               },
             ]}
             data={dataModalBundle}
@@ -248,9 +268,9 @@ const Produit = () => {
         <GroupButton
           buttons={variantsData.map((variant) => ({
             text: variant.name,
-            onClick: () => setProduitVariant(variant.name),
+            onClick: () => setProduitVariant(variant),
           }))}
-          defaultButton={produitVariant}
+          defaultButton={produitVariant.name}
         />
         {bundlesData ? (
           <TablePaged
@@ -262,7 +282,14 @@ const Produit = () => {
             ]}
             itemsPerPage={5}
             rowClick={(object) => navigate(`/bundle/${object.id}`)}
-            actions={[{ callback: () => setModalBundleSuppr(true) }]}
+            actions={[
+              {
+                callback: (object) => {
+                  console.log('Suppression du bundle', object)
+                  setModalBundleSuppr(true)
+                },
+              },
+            ]}
           />
         ) : null}
         {modalBundleSuppr ? (

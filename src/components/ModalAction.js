@@ -34,6 +34,7 @@ const ModalAction = ({
                 />
               ) : (
                 <InputForm
+                  type={item.type ?? 'text'}
                   label={item.name}
                   id={item.name}
                   name={item.value}
