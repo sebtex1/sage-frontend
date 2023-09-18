@@ -34,7 +34,7 @@ const Tier = () => {
   return (
     <Div>
       <PageColumn />
-      <PageColumn flex={5}>
+      <PageColumn flex={3}>
         <Div>
           <PageColumn>
             <InputForm
@@ -53,7 +53,7 @@ const Tier = () => {
               name="adress"
               placeholder=""
               value={tier.ta_address}
-              onChange={(e) => setTier({ ...tier, ta_adress: e.target.value })}
+              onChange={(e) => setTier({ ...tier, ta_address: e.target.value })}
             />
             <InputForm
               label="Code postal"

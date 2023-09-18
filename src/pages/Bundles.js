@@ -25,11 +25,10 @@ const Bundles = () => {
   }, [])
 
   const navigate = useNavigate()
-
   return (
     <Div>
       <PageColumn />
-      <PageColumn flex={5}>
+      <PageColumn flex={3}>
         <InputForm
           label="Rechercher"
           type="text"
@@ -49,7 +48,7 @@ const Bundles = () => {
         </DivSpaceBetween>
         {modalBundle ? (
           <ModalAction
-            title="Ajout du produit"
+            title="Ajout du bundle"
             model={[
               { name: 'Nom', value: 'name' },
               { name: 'Référence', value: 'reference' },

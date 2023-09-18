@@ -26,7 +26,7 @@ const Bundle = () => {
   return (
     <Div>
       <PageColumn />
-      <PageColumn flex={5}>
+      <PageColumn flex={3}>
         <h1>Bundle:</h1>
         <InputForm
           label="Nom"

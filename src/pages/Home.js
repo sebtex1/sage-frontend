@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <Div>
       <PageColumn />
-      <PageColumn flex={5}>
+      <PageColumn flex={3}>
         <Image
           alt="meeting d'entreprise"
           src="https://c0.wallpaperflare.com/preview/811/935/645/adults-analysis-brainstorming-collaboration.jpg"

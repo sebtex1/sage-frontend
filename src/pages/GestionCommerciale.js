@@ -31,7 +31,7 @@ const GestionCommerciale = () => {
         <Link to="/bundle/1">Bundle</Link>
       </button> */}
       <PageColumn />
-      <PageColumn flex={5}>
+      <PageColumn flex={3}>
         <Div>
           <PageColumn>
             <Button onClick={() => navigate('/documents')}>Documents</Button>

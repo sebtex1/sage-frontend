@@ -72,7 +72,7 @@ const ModalContent = styled.div`
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
+  width: 50%;
 `
 
 const ModalHeader = styled.div`

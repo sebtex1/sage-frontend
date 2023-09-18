@@ -27,7 +27,7 @@ const Variant = () => {
   return (
     <Div>
       <PageColumn />
-      <PageColumn flex={5}>
+      <PageColumn flex={3}>
         <h1>Variant:</h1>
         <Div>
           <PageColumn>

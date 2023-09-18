@@ -37,7 +37,7 @@ const Produits = () => {
   return (
     <Div>
       <PageColumn />
-      <PageColumn flex={5}>
+      <PageColumn flex={3}>
         <InputForm
           label="Rechercher"
           type="text"

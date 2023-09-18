@@ -256,6 +256,8 @@ const Produit = () => {
             ) : null}
           </>
         ) : null}
+        <br />
+        <br />
         <DivSpaceBetween>
           <H1>Bundles</H1>
           <ButtonAction

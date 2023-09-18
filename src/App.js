@@ -9,6 +9,7 @@ import Documents from './pages/Documents'
 import Document from './pages/Document'
 import Produits from './pages/Produits'
 import Produit from './pages/Produit'
+import Tiers from './pages/Tiers'
 import Tier from './pages/Tier'
 import Variant from './pages/Variant'
 import Bundles from './pages/Bundles'
@@ -75,6 +76,14 @@ const router = createBrowserRouter([
     element: (
       <Default>
         <Produit />
+      </Default>
+    ),
+  },
+  {
+    path: '/tiers',
+    element: (
+      <Default>
+        <Tiers />
       </Default>
     ),
   },
