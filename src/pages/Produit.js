@@ -21,8 +21,6 @@ const Produit = () => {
   })
   const [variantsData, setVariantsData] = useState([])
   const [produitVariant, setProduitVariant] = React.useState({})
-  const [bundlesData, setBundlesData] = React.useState([])
-  const [listBundle, setListBundle] = React.useState([])
   const [modalVariant, setModalVariant] = React.useState(false)
   const [dataModalVariant, setDataModalVariant] = React.useState({
     name: '',
@@ -31,10 +29,15 @@ const Produit = () => {
     purchase_price: 0,
     selling_price: 0,
   })
+  const [listBundle, setListBundle] = React.useState([])
+  const [bundlesData, setBundlesData] = React.useState([])
+  const [produitBundle, setProduitBundle] = React.useState({})
   const [modalBundle, setModalBundle] = React.useState(false)
   const [dataModalBundle, setDataModalBundle] = React.useState({
     bundleToAdd: '',
+    quantity: 0,
   })
+  const [produitBundleElement, setProduitBundleElement] = React.useState({})
   const [modalVariantSuppr, setModalVariantSuppr] = React.useState(false)
   const [modalBundleSuppr, setModalBundleSuppr] = React.useState(false)
   const [idProduit] = React.useState(useParams().id)
@@ -52,7 +55,7 @@ const Produit = () => {
   }, [variantsData])
 
   React.useEffect(() => {
-    if (variantsData !== '') {
+    if (variantsData.length > 0) {
       ProductService.getBundlesByVariant(
         variantsData.filter(
           (variant) => variant.name === produitVariant.name,
@@ -61,6 +64,31 @@ const Produit = () => {
       )
     }
   }, [produitVariant])
+
+  React.useEffect(() => {
+    if (listBundle.length > 0) {
+      setDataModalBundle({
+        ...dataModalBundle,
+        bundleToAdd: listBundle[0].name,
+      })
+    }
+  }, [listBundle])
+
+  React.useEffect(() => {
+    if (produitBundle.id && produitVariant.id) {
+      console.log('produitBundle', produitBundle)
+      console.log('produitVariant', produitVariant)
+      ProductService.getBundleElement(
+        produitVariant.id,
+        produitBundle.id,
+        setProduitBundleElement,
+      )
+    }
+  }, [produitBundle])
+
+  React.useEffect(() => {
+    console.log('produitBundleElement', produitBundleElement)
+  }, [produitBundleElement])
 
   const navigate = useNavigate()
   const labels = ['21/08', '28/08', '04/09']
@@ -78,7 +106,6 @@ const Produit = () => {
       backgroundColor: 'rgba(53, 162, 235)',
     },
   ]
-  // const listBundle = ['Ensemble jaune', 'Ensemble t-shirt jaune + short noir']
   return (
     <Div>
       <PageColumn>
@@ -174,7 +201,7 @@ const Produit = () => {
               })
             }
             submit={async () => {
-              ProductService.postVariants(
+              ProductService.postVariant(
                 idProduit,
                 dataModalVariant,
                 variantsData,
@@ -248,6 +275,7 @@ const Produit = () => {
                 type: 'select',
                 list: listBundle.map((bundle) => bundle.name),
               },
+              { name: 'Quantité', value: 'quantity', type: 'number' },
             ]}
             data={dataModalBundle}
             button="Valider"
@@ -258,6 +286,24 @@ const Produit = () => {
               })
             }
             submit={() => {
+              ProductService.postBundleElement(
+                listBundle.filter(
+                  (bundle) => bundle.name === dataModalBundle.bundleToAdd,
+                )[0]?.id,
+                {
+                  bundle_id: listBundle.filter(
+                    (bundle) => bundle.name === dataModalBundle.bundleToAdd,
+                  )[0]?.id,
+                  variant_id: variantsData.filter(
+                    (variant) => variant.name === produitVariant.name,
+                  )[0]?.id,
+                  quantity: parseFloat(dataModalBundle.quantity),
+                },
+                listBundle,
+                bundlesData,
+                setBundlesData,
+              )
+              console.log('bundlesData', bundlesData)
               setModalBundle(false)
             }}
             cancel={() => {
@@ -277,7 +323,7 @@ const Produit = () => {
             data={bundlesData}
             headers={[
               { name: 'Nom', value: 'name' },
-              { name: 'Prix vente HT', value: 'sell_price' },
+              { name: 'Prix vente HT', value: 'price' },
               { name: '', value: 'actions' },
             ]}
             itemsPerPage={5}
@@ -285,7 +331,7 @@ const Produit = () => {
             actions={[
               {
                 callback: (object) => {
-                  console.log('Suppression du bundle', object)
+                  setProduitBundle(object)
                   setModalBundleSuppr(true)
                 },
               },
@@ -295,9 +341,15 @@ const Produit = () => {
         {modalBundleSuppr ? (
           <ModalAction
             title="Suppression de bundle"
-            text="Êtes-vous sûr de vouloir supprimer le bundle ?"
+            text={`Êtes-vous sûr de vouloir supprimer le produit ${produitVariant.name} du bundle ${produitBundle.name} ? ${produitBundleElement?.id}`}
             button="Supprimer"
             submit={() => {
+              console.log('suppression du bundle', produitBundle)
+              ProductService.deleteBundleElement(
+                produitBundleElement.id,
+                produitVariant.id,
+                setBundlesData,
+              )
               setModalBundleSuppr(false)
             }}
             cancel={() => {

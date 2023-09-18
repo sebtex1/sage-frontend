@@ -81,7 +81,7 @@ const ProductService = {
       })
   },
 
-  postVariants: (id, variant, variants, setVariants) => {
+  postVariant: (id, variant, variants, setVariants) => {
     axios({
       method: 'post',
       baseURL: 'http://localhost:3030/api/v1',
@@ -116,6 +116,91 @@ const ProductService = {
       .then((response) => {
         console.log('response', response)
         setVariants(variants.filter((variant) => variant.id !== id))
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  },
+
+  postBundleElement: (id, bundleElement, listBundle, bundles, setBundles) => {
+    axios({
+      method: 'post',
+      baseURL: 'http://localhost:3030/api/v1',
+      url: `bundles/${id}/elements`,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        company_id: '2508',
+      },
+      data: bundleElement,
+      params: {},
+    })
+      .then((response) => {
+        console.log('response', response)
+        const bundleUsed = listBundle.find((bundle) => bundle.id === id)
+        setBundles([
+          ...bundles,
+          { name: bundleUsed.name, sell_price: bundleUsed.sell_price },
+        ])
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  },
+
+  getBundleElement: (variantId, bundleId, setBundleElement) => {
+    axios({
+      method: 'get',
+      baseURL: 'http://localhost:3030/api/v1',
+      url: `bundle-elements`,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        company_id: '2508',
+      },
+      params: { bundle_id: bundleId, variant_id: variantId },
+    })
+      .then((response) => {
+        console.log('get bundle element', response)
+        setBundleElement(response.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  },
+
+  deleteBundleElement: (id, idVariant, setBundles) => {
+    axios({
+      method: 'delete',
+      baseURL: 'http://localhost:3030/api/v1',
+      url: `bundle-elements/${id}`,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        company_id: '2508',
+      },
+      params: {},
+    })
+      .then((response) => {
+        console.log('delete bundle element', response)
+        ProductService.getBundlesByVariant(idVariant, setBundles)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  },
+
+  putVariant: (id, variant) => {
+    axios({
+      method: 'put',
+      baseURL: 'http://localhost:3030/api/v1',
+      url: `variants/${id}`,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        company_id: '2508',
+      },
+      data: variant,
+      params: {},
+    })
+      .then((response) => {
+        console.log('response', response)
       })
       .catch((error) => {
         console.log(error)
