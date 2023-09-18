@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { useNavigate, useParams } from 'react-router-dom'
 import PageColumn from '../components/PageColumn'
 import InputForm from '../components/InputForm'
-import SwitchForm from '../components/SwitchForm'
 import ButtonAction from '../components/ButtonAction'
 import LineChart from '../components/LineChart'
 import TablePaged from '../components/TablePaged'
@@ -132,18 +131,6 @@ const Produit = () => {
               placeholder="Nom du produit"
               value={produit.name}
               onChange={(e) => setProduit({ ...produit, name: e.target.value })}
-            />
-            <SwitchForm
-              label="Suivi en stock"
-              id="stock_tracking"
-              name="stock_tracking"
-              value={produit.stock_tracking}
-              onChange={() =>
-                setProduit({
-                  ...produit,
-                  stock_tracking: !produit.stock_tracking,
-                })
-              }
             />
           </PageColumn>
           <PageColumn>

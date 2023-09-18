@@ -8,6 +8,8 @@ const SwitchForm = ({ label, id, name, value = false, onChange }) => {
         <Input
           type="checkbox"
           value={value}
+          defaultChecked={value}
+          checked={value}
           onClick={() => {
             onChange()
           }}
