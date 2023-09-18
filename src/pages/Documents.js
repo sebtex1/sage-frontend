@@ -30,11 +30,11 @@ const Documents = () => {
     {
       name: 'Vente',
       choices: [
-        { name: 'Devis', value: 'devis' },
-        { name: 'Bon de commande', value: 'bonDeCommande' },
-        { name: 'Bon de livraison', value: 'bonDeLivraison' },
-        { name: 'Facture', value: 'facture' },
-        { name: 'Tous les documents', value: 'tousLesDocuments' },
+        { name: 'Devis', value: 1 },
+        { name: 'Bon de commande', value: 2 },
+        { name: 'Bon de livraison', value: 3 },
+        { name: 'Facture', value: 4 },
+        { name: 'Tous les documents', value: 5 },
       ],
     },
     { name: 'Achat', choices: ['1', '2'] },

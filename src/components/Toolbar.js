@@ -64,7 +64,7 @@ const Toolbar = () => {
               alt="Logo sage"
             />
           </LinkStyled>
-          <p>Gestion commerciale &gt; Produits</p>
+          {/* <p>Gestion commerciale &gt; Produits</p> */}
         </Side>
         <Side>
           {isConnected !== null ? (

@@ -8,38 +8,46 @@ const GestionCommerciale = () => {
   const navigate = useNavigate()
   return (
     <Div>
-      {/* <h1>Gestion Commerciale</h1> */}
-      {/* <button>
-        <Link to="/documents">Documents</Link>
-      </button>
-      <button>
-        <Link to="/documents/1">Document</Link>
-      </button>
-      <button>
-        <Link to="/produits">Produits</Link>
-      </button>
-      <button>
-        <Link to="/produits/1">Produit</Link>
-      </button>
-      <button>
-        <Link to="/tiers/1">Tiers</Link>
-      </button>
-      <button>
-        <Link to="/variant/1">Variant</Link>
-      </button>
-      <button>
-        <Link to="/bundle/1">Bundle</Link>
-      </button> */}
       <PageColumn />
       <PageColumn flex={3}>
         <Div>
           <PageColumn>
-            <Button onClick={() => navigate('/documents')}>Documents</Button>
-            <Button onClick={() => navigate('/tiers')}>Tiers</Button>
-          </PageColumn>
-          <PageColumn>
-            <Button onClick={() => navigate('/produits')}>Produits</Button>
-            <Button onClick={() => navigate('/bundles')}>Bundles</Button>
+            <Rectangle>
+              <H1>Documents</H1>
+              <RowButtons>
+                <Button onClick={() => navigate('/documents?')}>
+                  Documents d&apos;achat
+                </Button>
+                <Button onClick={() => navigate('/documents?')}>
+                  Documents de vente
+                </Button>
+              </RowButtons>
+            </Rectangle>
+            <Rectangle>
+              <H1>Tiers</H1>
+              <RowButtons>
+                <Button onClick={() => navigate('/tiers?type=Fournisseur')}>
+                  Fournisseurs
+                </Button>
+                <Button onClick={() => navigate('/tiers?type=Clients')}>
+                  Clients
+                </Button>
+              </RowButtons>
+            </Rectangle>
+            <Rectangle>
+              <H1>Produits</H1>
+              <RowButtons>
+                <Button onClick={() => navigate('/produits?')}>Produits</Button>
+                <Button onClick={() => navigate('/produits?')}>Produits</Button>
+              </RowButtons>
+            </Rectangle>
+            <Rectangle>
+              <H1>Bundles</H1>
+              <RowButtons>
+                <Button onClick={() => navigate('/bundles?')}>Bundles</Button>
+                <Button onClick={() => navigate('/bundles?')}>Bundles</Button>
+              </RowButtons>
+            </Rectangle>
           </PageColumn>
         </Div>
       </PageColumn>
@@ -56,8 +64,37 @@ const Div = styled.div`
   justify-content: center;
 `
 
+const Rectangle = styled.div`
+  width: 100%;
+  height: 150px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 0 2px #000000;
+  margin: 0px auto 40px;
+`
+
+const RowButtons = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  margin-left: 50px;
+`
+
+const H1 = styled.h1`
+  margin-left: 50px;
+  color: #007e45;
+`
+
 const Button = styled.button`
-  margin: 0px auto 50px;
-  width: 300px;
-  height: 300px;
+  width: 150px;
+  height: 50px;
+  margin-right: 50px;
+  background-color: #bff1cd;
+  border: none;
+  border-radius: 5px;
+  &:hover {
+    background-color: #007e45;
+    color: #ffffff;
+  }
 `
