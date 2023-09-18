@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useNavigate, useParams } from 'react-router-dom'
 import PageColumn from '../components/PageColumn'
@@ -10,22 +10,23 @@ import TablePaged from '../components/TablePaged'
 import GroupButton from '../components/GroupButton'
 import HintText from '../components/HintText'
 import ModalAction from '../components/ModalAction'
+import ProductService from '../services/productService'
 
 const Produit = () => {
   const [search, setSearch] = React.useState('')
   const [produit, setProduit] = React.useState({
     name: 'T-shirt oversize',
-    ref: 'TSHIRTOVER',
+    reference: 'TSHIRTOVER',
     stock_tracking: true,
   })
   const [produitVariant, setProduitVariant] = React.useState('Bleu')
   const [modalVariant, setModalVariant] = React.useState(false)
   const [dataModalVariant, setDataModalVariant] = React.useState({
     name: '',
-    ref: '',
+    reference: '',
     stock: '',
     price: '',
-    price_ht: '',
+    selling_price: '',
   })
   const [modalBundle, setModalBundle] = React.useState(false)
   const [dataModalBundle, setDataModalBundle] = React.useState({
@@ -36,16 +37,9 @@ const Produit = () => {
   const [idProduit] = React.useState(useParams().id)
 
   React.useEffect(() => {
-    console.log(produit)
-  }, [produit])
-
-  React.useEffect(() => {
-    console.log(dataModalVariant)
-  }, [dataModalVariant])
-
-  React.useEffect(() => {
-    console.log(dataModalBundle)
-  }, [dataModalBundle])
+    console.log('product id', idProduit)
+    ProductService.getProduct(idProduit, setProduit, setVariantsData)
+  }, [])
 
   const navigate = useNavigate()
   const labels = ['21/08', '28/08', '04/09']
@@ -63,24 +57,25 @@ const Produit = () => {
       backgroundColor: 'rgba(53, 162, 235)',
     },
   ]
-  const variantsData = [
-    {
-      id: 1,
-      name: 'Bleu',
-      ref: 'TSHIRTOVERB',
-      stock: 23,
-      price: 11.99,
-      price_ht: 18.99,
-    },
-    {
-      id: 2,
-      name: 'Jaune',
-      ref: 'TSHIRTOVERJ',
-      stock: 9,
-      price: 10.59,
-      price_ht: 17.99,
-    },
-  ]
+  const [variantsData, setVariantsData] = useState([])
+  // const variantsData = [
+  //   {
+  //     id: 1,
+  //     name: 'Bleu',
+  //     reference: 'TSHIRTOVERB',
+  //     stock: 23,
+  //     price: 11.99,
+  //     selling_price: 18.99,
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'Jaune',
+  //     reference: 'TSHIRTOVERJ',
+  //     stock: 9,
+  //     price: 10.59,
+  //     selling_price: 17.99,
+  //   },
+  // ]
   const bundlesData = [
     { id: 1, name: 'Ensemble jaune', sell_price: 18.99 },
     { id: 2, name: 'Ensemble t-shirt jaune + short noir', sell_price: 18.99 },
@@ -140,11 +135,13 @@ const Produit = () => {
             <InputForm
               label="Référence"
               type="text"
-              id="ref"
-              name="ref"
+              id="reference"
+              name="reference"
               placeholder="Référence du produit"
-              value={produit.ref}
-              onChange={(e) => setProduit({ ...produit, ref: e.target.value })}
+              value={produit.reference}
+              onChange={(e) =>
+                setProduit({ ...produit, reference: e.target.value })
+              }
             />
           </PageColumn>
         </Div>
@@ -161,10 +158,10 @@ const Produit = () => {
             title="Ajout de variant"
             model={[
               { name: 'Nom', value: 'name' },
-              { name: 'Référence', value: 'ref' },
+              { name: 'Référence', value: 'reference' },
               { name: 'Stock', value: 'stock' },
-              { name: 'Prix TTC', value: 'price' },
-              { name: 'Prix HT', value: 'price_ht' },
+              { name: 'Prix achat', value: 'purchase_price' },
+              { name: 'Prix vente HT', value: 'selling_price' },
             ]}
             data={dataModalVariant}
             button="Valider"
@@ -188,10 +185,10 @@ const Produit = () => {
               data={variantsData}
               headers={[
                 { name: 'Nom', value: 'name' },
-                { name: 'Référence', value: 'ref' },
+                { name: 'Référence', value: 'reference' },
                 { name: 'Stock', value: 'stock' },
-                { name: 'Prix TTC', value: 'price' },
-                { name: 'Prix HT', value: 'price_ht' },
+                { name: 'Prix achat', value: 'purchase_price' },
+                { name: 'Prix vente HT', value: 'selling_price' },
                 { name: '', value: 'actions' },
               ]}
               itemsPerPage={5}
@@ -260,7 +257,7 @@ const Produit = () => {
             data={bundlesData}
             headers={[
               { name: 'Nom', value: 'name' },
-              { name: 'Prix de vente', value: 'sell_price' },
+              { name: 'Prix vente HT', value: 'sell_price' },
               { name: '', value: 'actions' },
             ]}
             itemsPerPage={5}
